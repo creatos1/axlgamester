@@ -1,0 +1,213 @@
+
+<link rel="icon" type="image/png" href="assets/icon.png">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+<body>
+<div id="particles-js"></div> <!-- Contenedor de partículas -->
+
+<section>
+  <section>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+      <div class="container">
+        <a class="navbar-brand" href="/home">
+          <img src="../../assets/img/22222.png" class="navbar-logo" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" (click)="toggleVertical()">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" [class.show]="isVertical">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Inicio</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="https://www.youtube.com/@AxlGamester">Youtube</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/mods.es">Mods</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/galeria.es">Galería</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="/donacion.es">Donación</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="/acerca.es">Acerca</a>
+            </li>        
+          </ul>
+        </div>
+      </div>
+    </nav>
+</section>
+<audio id="myAudio" loop>
+  <source src="../../assets/sound/sound.mp3" type="audio/mpeg">
+  Tu navegador no soporta el elemento de audio.
+</audio>
+<button class="audio-button" (click)="toggleAudio()">
+  <img [src]="audioIconSrc" alt="Audio">
+</button>
+
+<div id="video-container">
+  <video id="video" playsinline muted loop autoplay onclick="this.play();" poster="../../assets/img/lol.png">
+    <source src="../../assets/img/2.mp4" type="video/mp4">
+  </video>
+  <section>
+    <div class="g">Bienvenido a la página web de 
+      <br>AXL GAMESTER
+      <div>
+        <a href="https://www.youtube.com/@AxlGamester" Target="_blank">
+          <button class="eb">Ir al canal de Youtube</button>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+</section>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2524200979329442"
+     crossorigin="anonymous"></script>
+<!-- Gamester -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2524200979329442"
+     data-ad-slot="3498720631"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<section class="sec">
+  <br><br><br><br><br><br><br><br> 
+  <h1 class="g">DESCUBRE ALGUNOS MODS HECHOS POR AXL GAMESTER</h1>
+  <br><br> <br><br> 
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <img src="../../assets/img/MINOTAUR.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">MINOTAURO DORADO</h5>
+            <p class="card-text">Skin dorada para el minotauro del templo de Pandora.</p>
+            <div>
+              <a href="https://www.youtube.com/channel" Target="_blank">
+                <button class="ebnn">Ver más</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <img src="../../assets/img/5.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">ARMADURA DORADA</h5>
+            <p class="card-text">Skin reediseñada con texturas de alta definición.</p>
+            <div>
+              <a href="https://www.youtube.com/channel" Target="_blank">
+                <button class="ebnn">Ver más</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <img src="../../assets/img/blade.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">ESPADA DEL OLIMPO</h5>
+            <p class="card-text">Espada del Olimpo reemplazada por la espada de Artemisa.</p>
+            <div>
+              <a href="https://www.youtube.com/channel" Target="_blank">
+                <button class="ebnn">Ver más</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <img src="../../assets/img/Leviathan.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">KRATOS NÓRDICO</h5>
+            <p class="card-text">Kratos viaja de nuevo al pasado y esta vez con Leviathan.</p>
+            <div>
+              <a href="https://www.youtube.com/channel" Target="_blank">
+                <button class="ebnn">Ver más</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <img src="../../assets/img/claws.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">ARMAS DE HADES</h5>
+            <p class="card-text">Garras de Hades reemplazadas por las espadas.</p>
+            <div>
+              <a href="https://www.youtube.com/channel" Target="_blank">
+                <button class="ebnn">Ver más</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <img src="../../assets/img/BETA BLADES.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">ARMAS BETA</h5>
+            <p class="card-text">Fueron el primer prototipo de las espadas del caos.</p>
+            <div>
+              <a href="https://www.youtube.com/channel" Target="_blank">
+                <button class="ebnn">Ver más</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section class="fb">
+  <!-- Otro contenido de la sección -->
+  <div class="cc">
+    <h2 >DESCARGA GOD OF WAR® AXL EDITION Ver.0.1<br> CON NUEVAS SKINS, ARMAS, MODELOS, ETC. GRATIS: </h2>
+    <section>
+      <div>
+        <a href="https://www.youtube.com/watch?v=z9IIZ91xxKg" Target="_blank">
+          <button class="ebnn">Descarga</button>
+        </a>
+      </div>
+    </section>
+  </div>
+</section>
+<section class="side-by-side-section">
+  <div class="image-container">
+    <img src="../../assets/img/menu1.webp" alt="Imagen">
+    </div>
+  <div class="text-container">
+    <p>ACERCA DE MI: <br>SOY UN ESTUDIANTE DE PROGRAMACIÓN QUE INTENTA CUMPLIR SUS SUEÑOS, ASÍ COMO TAMBIEN, COMPARTIR LO QUE DISEÑO, CREO Y CONSTRUYO, ME ENCANTA LA PROGRAMACIÓN, EL DISEÑO Y LA EDICIÓN DE CONTENIDO DIGITAL.</p>
+    <button class="sendbutton" target="_blank" id="enviarCorreo">Enviar correo</button>    </div>
+</section>
+<footer>
+  <div class="footer-content"><br>
+    <h5>AXL GAMESTER</h5><br>
+    <div class="social-icons">
+      <a href="https://www.facebook.com/profile.php?id=61557729908419" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://www.tiktok.com/@axlgamester" target="_blank"><i class="fab fa-tiktok"></i></a>
+      <a href="https://www.instagram.com/axl_gamester/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.youtube.com/@AxlGamester" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://discord.gg/X78yUfMenP" target="_blank"><i class="fab fa-discord"></i></a>
+      <a href="https://www.twitch.tv/axlgamester/" target="_blank"><i class="fab fa-twitch"></i></a>
+    </div><br>
+    <p class="card-text">Las imágenes que se muestran en este sitio web no pertenecen a AxlGamester, todo el crédito a sus respectivos dueños.</p>
+    <br>
+  </div>
+</footer>
+</body>

@@ -1,0 +1,91 @@
+.section {
+    background-color: #000000;
+    padding: 50px 0;
+    background-color: #f0f0f0;
+    text-align: center;
+  }
+  .section .greeting {
+    font-size: 40px;
+    color: white;
+    font-family: 'Bebas Neue', sans-serif;
+    z-index: 2;
+    padding-bottom: 100px;
+  }
+  .section .logo-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+  }
+  .section .logo-image {
+    max-width: 100%;
+    height: auto;
+  }
+  @media (max-width: 768px) {
+    .section .greeting {
+      font-size: 30px;
+    }
+    .section .logo-container {
+      position: static;
+      transform: none;
+      margin-top: 20px;
+    }
+  }
+  .section h2 {
+    margin-bottom: 20px;
+  }
+  .navbar {
+    width: 100%;
+    z-index: 1;
+    background: linear-gradient(to bottom, #000000, rgba(0, 0, 0, 0));
+  }
+  .navbar-nav {
+    margin-left: auto;
+  }
+  .nav-item {
+    margin-right: 20px;
+  }
+  .nav-link {
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+  .nav-link:hover {
+    text-shadow: 0px 4px 10px rgb(255, 0, 0);
+    font-size: 32px;
+  }
+  .navbar-logo {
+    max-width: 130px;
+  }
+  footer {
+    background-color: #000000;
+    color: #fff;
+    font-family: 'god';
+    text-align: center;
+  }
+  @media (max-width: 768px) {
+    footer {
+      padding-bottom: 60px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+  .footer-content {
+    display: inline;
+    justify-content: center;
+    align-items: center;
+  }
+  .footer-content p {
+    flex: 1;
+  }
+  .social-icons a {
+    color: #ff0000;
+    text-decoration: none;
+    font-size: 24px;
+    margin: 0 10px;
+  }
+  @font-face {
+    font-family: 'god';
+    src: url('../../../assets/font/GODOFWAR.TTF') format('truetype');
+  }
