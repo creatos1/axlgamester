@@ -9,10 +9,14 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { EsModule } from './es/es.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore'; // Nueva forma de usar Firestore
+import { environment } from '../envoronments/environment'; // Corrige la ruta aquí
+import { AuthService } from './services/auth.service'; 
 
 @NgModule({
   declarations: [
-    
+     // Asegúrate de declarar tu AppComponent aquí
   ],
   imports: [
     BrowserModule,
@@ -23,9 +27,13 @@ import { SharedModule } from './shared/shared.module';
     BrowserAnimationsModule,
     NgxSpinnerModule,
     RouterModule.forRoot([]),
-SharedModule
+    SharedModule,
   ],
-  providers: [],
-  bootstrap: [] // No se especifica ningún componente para arrancar la aplicación aquí
+  providers: [
+    AuthService, // Añade AuthService aquí
+    provideFirebaseApp(() => initializeApp(environment.firebase)), // Proveedor de FirebaseApp
+    provideFirestore(() => getFirestore()), // Proveedor de Firestore
+  ],
+  bootstrap: [] // Asegúrate de bootstrap el componente principal
 })
 export class AppModule { }
