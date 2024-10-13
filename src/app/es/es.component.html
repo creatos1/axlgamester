@@ -23,12 +23,12 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <a class="nav-link" href="/home">
-                <i class="fas fa-home"></i> Inicio <!-- Icono de Font Awesome aquí -->
+                <i class="fas fa-home"></i> Inicio
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="https://www.youtube.com/@AxlGamester">
-                <i class="fab fa-youtube"></i> Youtube <!-- Otro icono para Youtube -->
+                <i class="fab fa-youtube"></i> Youtube
               </a>
             </li>
             <li class="nav-item">
@@ -44,8 +44,15 @@
               <a class="nav-link" href="/acerca.es">Acerca</a>
             </li>
             <li class="nav-item" *ngIf="userService.isLoggedIn(); else loginLink">
-              <a class="nav-link" href="#"><i class="fas fa-user"></i></a> <!-- Ícono de usuario -->
+              <div class="nav-link dropdown">
+                <a [routerLink]="['/usuario.es']" style="border: none; background: none; cursor: pointer;">
+                  <i class="fas fa-user"></i>
+                </a>
+                <app-usuario *ngIf="isDropdownOpen"></app-usuario> <!-- Componente Usuario -->
+              </div>
             </li>
+            
+            
             <ng-template #loginLink>
               <li class="nav-item">
                 <a class="nav-link" href="/essesion.es">Iniciar Sesión</a>
@@ -55,6 +62,8 @@
         </div>
       </div>
     </nav>
+    
+    
     
   </section>
 <audio id="myAudio" loop>

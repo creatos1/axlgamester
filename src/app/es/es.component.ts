@@ -15,12 +15,16 @@ export class EsComponent implements OnInit {
   isVertical: boolean = false;
   audio = new Audio();
   audioIconSrc = '../../assets/img/sound.png'; // Cambia la ruta al icono de audio activado
-  email: string = '';
-  password: string = '';
+  email: string = ''; // Inicializa como una cadena vacía
+  password: string = ''; // Agrega la propiedad password
+  isDropdownOpen: boolean = false; // Estado del menú desplegable
+
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.configurarParticulas(); // Configurar partículas al inicializar
+    const storedEmail = this.userService.getUserEmail(); // Obtener el correo del usuario
+    this.email = storedEmail ? storedEmail : ''; // Asignar el correo si no es null
 
     // Agregar evento de clic al botón para enviar correo
     const botonEnviarCorreo = document.getElementById('enviarCorreo') as HTMLButtonElement;
@@ -28,6 +32,7 @@ export class EsComponent implements OnInit {
 
     this.configurarAudio(); // Configurar audio al inicializar
   }
+
   login() {
     this.authService.login(this.email, this.password).then(() => {
       this.router.navigate(['/home']);
@@ -37,9 +42,24 @@ export class EsComponent implements OnInit {
     });
   }
 
-
   toggleVertical() {
     this.isVertical = !this.isVertical;
+  }
+  toggleDropdown(event: MouseEvent) {
+    event.stopPropagation(); // Previene que el clic se propague a otros elementos
+    this.isDropdownOpen = !this.isDropdownOpen; // Alterna la visibilidad del menú desplegable
+  }
+  
+  
+
+  
+
+  logout() {
+    this.authService.logout().then(() => {
+      this.userService.clearUser(); // Limpia el usuario del servicio
+      this.email = ''; // Limpia el correo localmente
+      this.router.navigate(['/home']); // Redirige a la página de inicio
+    });
   }
 
   redirigirCorreo() {
@@ -60,7 +80,6 @@ export class EsComponent implements OnInit {
     // Redirigir
     window.location.href = correoURL;
   }
-
   configurarParticulas() {
     particlesJS('particles-js', {
       "particles": {

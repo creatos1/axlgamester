@@ -1,29 +1,30 @@
-// user.service.ts
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class UserService {
-  private userEmailSubject = new BehaviorSubject<string | null>(null);
-  userEmail$ = this.userEmailSubject.asObservable();
+  private userEmail: string | null = null;
 
-  constructor() {}
+  constructor() {
+    this.userEmail = localStorage.getItem('userEmail'); // Recupera el correo del almacenamiento local
+  }
 
   setUserEmail(email: string) {
-    this.userEmailSubject.next(email);
+    this.userEmail = email;
+    localStorage.setItem('userEmail', email); // Guarda el correo en el almacenamiento local
   }
 
   getUserEmail(): string | null {
-    return this.userEmailSubject.value;
+    return this.userEmail; // Retorna el correo del usuario
   }
 
   clearUser() {
-    this.userEmailSubject.next(null);
+    this.userEmail = null;
+    localStorage.removeItem('userEmail'); // Limpia el correo del almacenamiento local
   }
 
   isLoggedIn(): boolean {
-    return this.userEmailSubject.value !== null; // Verifica si hay un usuario conectado
+    return this.userEmail !== null; // Verifica si hay un usuario conectado
   }
 }

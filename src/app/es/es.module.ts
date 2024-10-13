@@ -11,6 +11,7 @@ import { DonacionesComponent } from './donaciones/donaciones.component';
 import { GaleriaesComponent } from './galeriaes/galeriaes.component';
 import { ModsesComponent } from './modses/modses.component';
 import { EsregistroComponent } from './esregistro/esregistro.component'; 
+import { UsuarioComponent } from './usuario/usuario.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { EsregistroComponent } from './esregistro/esregistro.component';
     AcercaesComponent,
     GaleriaesComponent,
     ModsesComponent,
-    
+    UsuarioComponent
   ],
   exports: [
     DonacionesComponent,
@@ -27,7 +28,7 @@ import { EsregistroComponent } from './esregistro/esregistro.component';
     AcercaesComponent,
     GaleriaesComponent,
     ModsesComponent,
-    
+    UsuarioComponent
 
   ],
   imports: [

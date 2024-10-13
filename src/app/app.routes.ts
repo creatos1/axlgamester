@@ -8,6 +8,7 @@ import { AcercaesComponent } from './es/acercaes/acercaes.component';
 import { EssesionComponent } from './es/essesion/essesion.component';
 import { EsregistroComponent } from './es/esregistro/esregistro.component';
 import { NgModule } from '@angular/core';
+import { UsuarioComponent } from './es/usuario/usuario.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: 'acerca.es', component: AcercaesComponent }, // Ruta para la página de inicio en español
   { path: 'essesion.es', component: EssesionComponent}, // Ruta para inicioar sesion solamente en el idioma español....
   { path: 'esregistro.es', component: EsregistroComponent}, //Ruta para registro de usuario
+  { path: 'usuario.es', component: UsuarioComponent},
   { path: '**', redirectTo: '/inicio', pathMatch: 'full' }, // Redirige a '/inicio' cuando no se encuentra ninguna ruta
 ];
 @NgModule({

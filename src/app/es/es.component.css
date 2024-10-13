@@ -11,6 +11,8 @@
   margin-right: 10px;
 }
 .nav-link {
+  cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+
   color: white;
   font-size: 25px;
   text-align: center;
@@ -23,6 +25,12 @@
 }
 .navbar-logo {
   max-width: 130px;
+}
+.nav-link button {
+  background: none; /* Sin fondo */
+  border: none; /* Sin borde */
+  color: white; /* Cambia el color según tu tema */
+  font-size: 1.5em; /* Ajusta el tamaño del ícono */
 }
 
 @media (max-width: 768px) {
@@ -277,4 +285,15 @@ footer {
   background-color: #ff0000;
   border-width:2px;
   border-color: #f0f0f0;
+}
+.dropdown-menu {
+  display: none; /* Inicialmente oculto */
+  position: absolute; /* Para que se superponga sobre otros elementos */
+  background-color: white; /* Color de fondo del menú */
+  border: 1px solid #ccc; /* Borde del menú */
+  z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
+}
+
+.dropdown-menu.show {
+  display: block; /* Muestra el menú cuando se debe mostrar */
 }
