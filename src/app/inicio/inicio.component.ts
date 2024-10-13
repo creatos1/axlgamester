@@ -6,7 +6,7 @@ declare var particlesJS: any; // Declaración de la función particlesJS
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
-  styleUrls: ['./inicio.component.scss']
+  styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
   constructor(private languageService: LanguageService, private router: Router) {}

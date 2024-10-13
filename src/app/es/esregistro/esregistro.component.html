@@ -38,43 +38,73 @@
     </nav>
 </section>
 <section class="sesion">
-    <div id="contenedor">
-      <div id="central">
+  <div id="contenedor">
+    <div id="central">
         <div id="login">
-          <div class="titulo">
-            REGISTRO DE USUARIO
-          </div>
-          <form (submit)="onSubmit($event)">
-            <input 
-              type="text" 
-              name="email" 
-              placeholder="Email" 
-              (input)="onInputEmail($event)" 
-              required>
-            
-            <input 
-              type="password" 
-              name="contrasena" 
-              placeholder="Contraseña" 
-              (input)="onInputPassword($event)" 
-              required>
-            
-            <button type="submit" title="Ingresar" name="Ingresar">Registrarse</button>
-          </form>
-          <div class="pie-form">
-            <a href="#">¿Perdiste tu contraseña?</a>
-            <a href="/essesion.es">¿Ya tienes Cuenta? Inicia Sesión</a>
-          </div>
+            <div class="titulo">
+          REGISTRO DE USUARIO
         </div>
-        <div class="inferior">
-          <a href="#">Volver</a>
+        <form [formGroup]="form" (ngSubmit)="submit()">
+          <a style="color:white">Correo electrónico</a>
+          <input type="email" name="email" formControlName="email">
+          <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+            <small *ngIf="form.get('email')?.hasError('required')" style="color:rgb(255, 0, 0)">Este campo es requerido</small>
+            <small *ngIf="form.get('email')?.hasError('email')" style="color:rgb(255, 0, 0)">El correo debe ser válido</small>
+          </div>
+        
+          <br>
+        
+          <a style="color:white">Contraseña</a>
+          <input type="password" name="password" formControlName="password" (input)="calculatePasswordStrength(form.get('password')?.value)">
+          <div *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
+            <small *ngIf="form.get('password')?.hasError('required')" style="color:rgb(255, 0, 0)">Este campo es requerido</small>
+            <small *ngIf="form.get('password')?.hasError('minlength')" style="color:rgb(255, 0, 0)">La contraseña debe tener al menos 8 caracteres</small>
+          </div>
+        
+          <!-- Password strength indicator -->
+          <div *ngIf="passwordStrength">
+            <small style="color:green " *ngIf="passwordStrength === 'alta'">CONTRASEÑA: TITÁNICA</small>
+            <small style="color:rgb(255, 204, 0)" *ngIf="passwordStrength === 'media'">CONTRASEÑA: ESPARTANA</small>
+            <small style="color:red" *ngIf="passwordStrength === 'baja'">CONTRASEÑA: MORTAL</small>
+          </div>
+        
+          <br>
+        
+          <a style="color:white">Confirmar Contraseña</a>
+          <input type="password" name="confirmPassword" formControlName="confirmPassword">
+          <div *ngIf="form.get('confirmPassword')?.touched && !passwordsMatch()">
+            <small style="color:rgb(255, 0, 0)">Las contraseñas no coinciden</small>
+          </div>
+             
+          <button type="submit" title="Registrar" [disabled]="form.invalid">Registrarse</button>
+          <br>
+          <br>
+          <div style="text-align:center" *ngIf="errorMessage" style="color:rgb(255, 0, 0)">
+            {{ errorMessage }}
+          </div>
+        
+          <!-- Success message -->
+          <div  style="text-align:center;" *ngIf="successMessage" style="color:green">
+            {{ successMessage }}
+          </div>
+        </form>
+        
+        
+        
+        
+        
+        
+        
+        <div class="pie-form">
+          <a href="/essesion.es">¿Ya tienes cuenta? Inicia sesión</a>
         </div>
       </div>
+      <div class="inferior">
+        <a href="#">Volver</a>
+      </div>
     </div>
-  </section>
-  
-  
-
+  </div>
+</section>
 <section >
     <footer>
         <div class="footer-content"><br>

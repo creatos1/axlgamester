@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-acercaes',
   templateUrl: './acercaes.component.html',
-  styleUrls: ['./acercaes.component.scss']
+  styleUrls: ['./acercaes.component.css']
 })
 export class AcercaesComponent implements OnInit {
   isVertical: boolean = false;

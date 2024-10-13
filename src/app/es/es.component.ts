@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, inject, OnInit } from '@angular/core';
+import { AuthService } from '../auth/auth.service'; 
+import { Router } from '@angular/router';
+import { UserService } from '../auth/user.service';
 declare var particlesJS: any; // Declaración de la función particlesJS
 
 @Component({
@@ -7,13 +9,15 @@ declare var particlesJS: any; // Declaración de la función particlesJS
   templateUrl: './es.component.html',
   styleUrls: ['./es.component.css']
 })
-export class EsComponent implements OnInit {
 
+export class EsComponent implements OnInit {
+  public userService = inject(UserService); 
   isVertical: boolean = false;
   audio = new Audio();
   audioIconSrc = '../../assets/img/sound.png'; // Cambia la ruta al icono de audio activado
-
-  constructor() { }
+  email: string = '';
+  password: string = '';
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.configurarParticulas(); // Configurar partículas al inicializar
@@ -24,6 +28,15 @@ export class EsComponent implements OnInit {
 
     this.configurarAudio(); // Configurar audio al inicializar
   }
+  login() {
+    this.authService.login(this.email, this.password).then(() => {
+      this.router.navigate(['/home']);
+      this.userService.setUserEmail(this.email); // Asegúrate de guardar el email aquí
+    }).catch(error => {
+      console.error('Error al iniciar sesión:', error);
+    });
+  }
+
 
   toggleVertical() {
     this.isVertical = !this.isVertical;

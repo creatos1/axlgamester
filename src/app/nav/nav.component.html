@@ -1,0 +1,29 @@
+<!-- nav.component.html -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+    <div class="container">
+      <a class="navbar-brand" href="/home">
+        <img src="../../assets/img/22222.png" class="navbar-logo" alt="Logo">
+      </a>
+      <button class="navbar-toggler" type="button" (click)="toggleVertical()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" [class.show]="isVertical">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item" *ngIf="user">
+            <a class="nav-link" href="#">
+              <img [src]="user.photoURL || 'assets/default-user-icon.png'" alt="User Icon" class="user-icon"> 
+              {{ user.displayName || 'Usuario' }}
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="!user">
+            <a class="nav-link" href="/essesion.es">Iniciar Sesión</a>
+          </li>
+          <li class="nav-item" *ngIf="user">
+            <a class="nav-link" href="#" (click)="logout()">Cerrar Sesión</a>
+          </li>
+          <!-- Otros enlaces -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+  

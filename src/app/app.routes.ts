@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { InicioComponent } from './inicio/inicio.component'; // Importa el componente de inicio
 import { EsComponent } from './es/es.component'; // Importa el componente EsComponent
 import { ModsesComponent } from './es/modses/modses.component';
@@ -7,6 +7,7 @@ import { DonacionesComponent } from './es/donaciones/donaciones.component';
 import { AcercaesComponent } from './es/acercaes/acercaes.component';
 import { EssesionComponent } from './es/essesion/essesion.component';
 import { EsregistroComponent } from './es/esregistro/esregistro.component';
+import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
@@ -20,3 +21,8 @@ export const routes: Routes = [
   { path: 'esregistro.es', component: EsregistroComponent}, //Ruta para registro de usuario
   { path: '**', redirectTo: '/inicio', pathMatch: 'full' }, // Redirige a '/inicio' cuando no se encuentra ninguna ruta
 ];
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
