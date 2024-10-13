@@ -2,41 +2,26 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { EsComponent } from './es.component';
-import { SharedModule } from '../shared/shared.module'; 
-import { routes } from '../app.routes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AcercaesComponent } from './acercaes/acercaes.component'; 
-import { DonacionesComponent } from './donaciones/donaciones.component'; 
-import { GaleriaesComponent } from './galeriaes/galeriaes.component';
-import { ModsesComponent } from './modses/modses.component';
-import { EsregistroComponent } from './esregistro/esregistro.component'; 
+
+import { EsComponent } from './es.component';
 import { UsuarioComponent } from './usuario/usuario.component';
+import { SharedModule } from '../shared/shared.module'; 
+import { NavbarComponent } from './navbar/navbar.component'; 
 
 @NgModule({
   declarations: [
-    DonacionesComponent,
     EsComponent,
-    AcercaesComponent,
-    GaleriaesComponent,
-    ModsesComponent,
-    UsuarioComponent
-  ],
-  exports: [
-    DonacionesComponent,
-    EsComponent,
-    AcercaesComponent,
-    GaleriaesComponent,
-    ModsesComponent,
-    UsuarioComponent
-
+    UsuarioComponent,
+    NavbarComponent  // Ensure this is declared
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
+    RouterModule.forChild([]),
     HttpClientModule,
     BrowserAnimationsModule,
-    SharedModule,
-  ]
+    SharedModule, 
+  ],
+  exports: [NavbarComponent]  // Ensure this is exported
 })
-export class EsModule { }
+export class EsModule {}

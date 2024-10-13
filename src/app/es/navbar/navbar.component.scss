@@ -1,0 +1,33 @@
+.navbar {
+  width: 100%;
+  z-index: 1;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(to bottom, #000000, rgba(0, 0, 0, 0));
+}
+.navbar-nav {
+  margin-left: auto;
+}
+.nav-item {
+  margin-right: 10px;
+}
+.nav-link {
+  cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+  color: white;
+  font-size: 25px;
+  text-align: center;
+  font-family: 'Bebas Neue', sans-serif;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.nav-link:hover {
+  color: #ff0000;
+  transform: scale(1.1);
+}
+.navbar-logo {
+  max-width: 130px;
+}
+.nav-link button {
+  background: none; /* Sin fondo */
+  border: none; /* Sin borde */
+  color: white; /* Cambia el color según tu tema */
+  font-size: 1.5em; /* Ajusta el tamaño del ícono */
+}

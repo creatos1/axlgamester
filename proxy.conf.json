@@ -1,0 +1,9 @@
+{
+    "/api": {
+      "target": "https://pagead2.googlesyndication.com",
+      "secure": true,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    }
+  }
+  

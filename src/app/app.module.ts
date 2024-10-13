@@ -14,11 +14,9 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore'; // Importa FormsModule
 import { environment } from '../../src/app/environment/environment';
-import { NavComponent } from '../app/nav/nav.component'; // Asegúrate de ajustar la ruta
-
 @NgModule({
   declarations: [
-    NavComponent
+    
   ],
   imports: [
     

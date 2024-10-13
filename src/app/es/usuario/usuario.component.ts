@@ -8,20 +8,19 @@ import { Router } from '@angular/router';
   templateUrl: './usuario.component.html',
   styleUrls: ['./usuario.component.scss']
 })
-export class UsuarioComponent {
-  public email: string | null = ''; // Permitir que el email sea string o null
+export class UsuarioComponent implements OnInit {
+  public email: string | null = ''; 
 
   constructor(private authService: AuthService, private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
-    this.email = this.userService.getUserEmail(); // Obtener el email del usuario
+    this.email = this.userService.getUserEmail(); 
   }
 
-  // Método para cerrar sesión
   logout() {
     this.authService.logout().then(() => {
-      this.userService.clearUser(); // Limpiar la información del usuario en el servicio
-      this.router.navigate(['/home']); // Redirigir a la página de inicio
+      this.userService.clearUser(); 
+      this.router.navigate(['/home']);
     }).catch(error => {
       console.error('Error al cerrar sesión:', error);
     });
