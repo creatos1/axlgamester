@@ -9,6 +9,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./usuario.component.scss']
 })
 export class UsuarioComponent implements OnInit {
+  isVertical: boolean = false;
+  toggleVertical() {
+  this.isVertical = !this.isVertical;
+  }
   public email: string | null = ''; 
 
   constructor(private authService: AuthService, private userService: UserService, private router: Router) {}

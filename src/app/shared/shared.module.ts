@@ -7,7 +7,7 @@ import { FooterComponent } from './footer/footer.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { routes } from '../app.routes';
-import { CommonModule } from '@angular/common';
+
 
 
 @NgModule({

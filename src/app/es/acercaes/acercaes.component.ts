@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../auth/user.service';
+import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-acercaes',
@@ -7,10 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AcercaesComponent implements OnInit {
   isVertical: boolean = false;
-
-  constructor() { }
+  public email: string | null = ''; 
+  constructor(private authService: AuthService, private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
+    this.email = this.userService.getUserEmail(); 
+
     // Función para redirigir según el tipo de dispositivo
     function redirigirCorreo() {
       // Verificar si es un dispositivo móvil
@@ -38,5 +43,13 @@ export class AcercaesComponent implements OnInit {
 
   toggleVertical() {
     this.isVertical = !this.isVertical;
+  }
+  logout() {
+    this.authService.logout().then(() => {
+      this.userService.clearUser(); 
+      this.router.navigate(['/home']);
+    }).catch(error => {
+      console.error('Error al cerrar sesión:', error);
+    });
   }
 }
