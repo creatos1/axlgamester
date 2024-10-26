@@ -79,17 +79,28 @@ button.audio-button img {
   height: 100vh;
 }
 .card {
+  font-family: 'Bebas Neue', sans-serif;
+
   margin-bottom: 30px;
-  background-color:black;
-  color:white;
-  border-width: 2px;
-  border-color: white;
-  border-radius: 0px;
-  transition: transform 0.3s ease;
+  background-color: black;
+  color: white;
+  border: 2px solid white;
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 15px;
 }
 .card:hover {
-  filter: brightness(150%);
-  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
+}
+.card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+.card-title{
+  font-family: 'Bebas Neue', sans-serif;
+
 }
 
 .sec {
@@ -100,7 +111,7 @@ button.audio-button img {
 
 .eb {
   text-decoration: none;
-  background-color:transparent;
+  background-color: transparent;
   color: white;
   border-color:red;
   padding-left: 20px;
@@ -109,6 +120,20 @@ button.audio-button img {
   cursor: pointer;
   margin: 0 auto;
   display: block;
+}
+.eb:hover {
+  text-decoration: none;
+  background-color: red;
+  color: white;
+  border-color:red;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  margin: 0 auto;
+  display: block;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.8); /* Resplandor amarillo */
+
 }
 .enter-button:hover {
   background-color:red;

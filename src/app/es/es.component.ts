@@ -3,7 +3,8 @@ import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from '../auth/user.service';
 declare var particlesJS: any; // Declaración de la función particlesJS
-
+import { CardService } from '../services/card.service'; // Asegúrate de importar tu servicio
+import { Observable } from 'rxjs';  // Para manejar observables
 @Component({
   selector: 'app-es',
   templateUrl: './es.component.html',
@@ -11,6 +12,9 @@ declare var particlesJS: any; // Declaración de la función particlesJS
 })
 
 export class EsComponent implements OnInit {
+  public cards$: Observable<any[]> | undefined; // Declaración opcional
+  public slickConfig: any; // Definición de slickConfig
+
   public userService = inject(UserService); 
   isVertical: boolean = false;
   audio = new Audio();
@@ -19,9 +23,17 @@ export class EsComponent implements OnInit {
   password: string = ''; // Agrega la propiedad password
   isDropdownOpen: boolean = false; // Estado del menú desplegable
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private cardService: CardService // Inyecta el servicio de tarjetas
+  ) {}
 
   ngOnInit(): void {
+    this.initializeSlickConfig(); // Inicializa la configuración de slick
+
+    this.cargarTarjetas(); // Carga las tarjetas al iniciar
+
     this.configurarParticulas(); // Configurar partículas al inicializar
     const storedEmail = this.userService.getUserEmail(); // Obtener el correo del usuario
     this.email = storedEmail ? storedEmail : ''; // Asignar el correo si no es null
@@ -32,7 +44,34 @@ export class EsComponent implements OnInit {
 
     this.configurarAudio(); // Configurar audio al inicializar
   }
-
+  cargarTarjetas() {
+    this.cards$ = this.cardService.getCards(); // Llama a tu servicio para obtener las tarjetas
+  }
+  initializeSlickConfig() {
+    this.slickConfig = {
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      dots: true,
+      infinite: true,
+      arrows: true,
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          },
+        },
+      ],
+    };
+  }
   login() {
     this.authService.login(this.email, this.password).then(() => {
       this.router.navigate(['/home']);

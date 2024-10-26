@@ -1,0 +1,21 @@
+<section class="upload">
+  <div class="image-upload-container">
+    <h2 class="title">Subir Imagen</h2>
+    <input type="file" (change)="onFileSelected($event)" accept="image/*" class="file-input">
+    <input type="text" [(ngModel)]="title" placeholder="Título de la imagen" class="input-field" required>
+    <textarea [(ngModel)]="description" placeholder="Descripción de la imagen" class="textarea-field" required></textarea>
+    <input type="text" [(ngModel)]="link" placeholder="Enlace asociado" class="input-field" required>
+    <button (click)="uploadImage()" [disabled]="!selectedFile || !title || !description || !link" class="upload-btn">Subir Imagen</button>
+    
+    <div *ngIf="uploadProgress$ | async as progress">
+      <p>Subiendo: {{ progress }}%</p>
+      <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+    </div>
+    
+    <img *ngIf="downloadURL$ | async as downloadURL" [src]="downloadURL" alt="Imagen subida" class="uploaded-image">
+    
+    <div *ngIf="downloadURL$ | async as downloadURL">
+      <p>Imagen subida correctamente. <a [href]="downloadURL" target="_blank">Ver imagen</a></p>
+    </div>
+  </div>
+</section>

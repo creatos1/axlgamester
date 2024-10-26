@@ -1,8 +1,15 @@
 
 <section>
-    <app-nav></app-nav> <!-- Ensure this tag is correct -->
+    <app-nav></app-nav> <!-- Asegúrate de que esta etiqueta sea correcta -->
+    <div class="usuario-container">
+        <h1>Perfil de Usuario</h1>
+    </div>
     <div class="usuario-dropdown">
         <p>Correo: {{ email }}</p>
         <button (click)="logout()" class="btn-logout">Cerrar Sesión</button>
     </div>
-  </section>
+</section>
+<section>
+    <app-image-upload></app-image-upload>
+
+</section>

@@ -9,20 +9,23 @@ import { EssesionComponent } from './es/essesion/essesion.component';
 import { EsregistroComponent } from './es/esregistro/esregistro.component';
 import { NgModule } from '@angular/core';
 import { UsuarioComponent } from './es/usuario/usuario.component';
+import { AdminComponent } from './es/admin/admin.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   { path: 'inicio', component: InicioComponent },
-  { path: 'home.es', component: EsComponent }, // Ruta para la página de inicio en español
-  { path: 'mods.es', component: ModsesComponent }, // Ruta para la página de inicio en español
-  { path: 'galeria.es', component: GaleriaesComponent }, // Ruta para la página de inicio en español
-  { path: 'donacion.es', component: DonacionesComponent }, // Ruta para la página de inicio en español
-  { path: 'acerca.es', component: AcercaesComponent }, // Ruta para la página de inicio en español
-  { path: 'essesion.es', component: EssesionComponent}, // Ruta para inicioar sesion solamente en el idioma español....
-  { path: 'esregistro.es', component: EsregistroComponent}, //Ruta para registro de usuario
-  { path: 'usuario.es', component: UsuarioComponent},
-  { path: '**', redirectTo: '/inicio', pathMatch: 'full' }, // Redirige a '/inicio' cuando no se encuentra ninguna ruta
+  { path: 'admin.es', component: AdminComponent },
+  { path: 'home.es', component: EsComponent },
+  { path: 'mods.es', component: ModsesComponent },
+  { path: 'galeria.es', component: GaleriaesComponent },
+  { path: 'donacion.es', component: DonacionesComponent },
+  { path: 'acerca.es', component: AcercaesComponent },
+  { path: 'essesion.es', component: EssesionComponent },
+  { path: 'esregistro.es', component: EsregistroComponent },
+  { path: 'usuario.es', component: UsuarioComponent },
+  { path: '**', redirectTo: '/inicio', pathMatch: 'full' },
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

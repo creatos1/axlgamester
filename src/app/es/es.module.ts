@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,10 +10,12 @@ import { SharedModule } from '../shared/shared.module';
 import { NavbarComponent } from './navbar/navbar.component'; 
 import { ModsesComponent } from './modses/modses.component';
 import { GaleriaesComponent } from './galeriaes/galeriaes.component';
-
 import { DonacionesComponent } from './donaciones/donaciones.component';
 import { AcercaesComponent } from './acercaes/acercaes.component';
 import { EssesionComponent } from './essesion/essesion.component';
+import { CardListComponent } from '../shared/card-list-component/card-list-component.component'; // Importa tu componente
+import { AdminComponent } from './admin/admin.component';
+
 @NgModule({
   declarations: [
     EsComponent,
@@ -23,7 +25,8 @@ import { EssesionComponent } from './essesion/essesion.component';
     GaleriaesComponent,
     DonacionesComponent,
     AcercaesComponent,
-    
+    CardListComponent,
+    AdminComponent,
   ],
   imports: [
     CommonModule,
@@ -32,7 +35,7 @@ import { EssesionComponent } from './essesion/essesion.component';
     BrowserAnimationsModule,
     SharedModule,
   ],
-  exports: [NavbarComponent]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] ,// Agrega esto para permitir Web Components,
+  exports: [NavbarComponent, CardListComponent] // Exporta el componente si es necesario
 })
 export class EsModule {}
-

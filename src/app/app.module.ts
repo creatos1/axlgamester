@@ -14,12 +14,16 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore'; // Importa FormsModule
 import { environment } from '../../src/app/environment/environment';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { AppRoutingModule } from './app.routes';
+
 @NgModule({
   declarations: [
     
-  ],
+      ],
   imports: [
-    
+    AppRoutingModule,
     FormsModule,
     BrowserModule,
     EsModule,
@@ -29,12 +33,15 @@ import { environment } from '../../src/app/environment/environment';
     NgxSpinnerModule,
     RouterModule.forRoot([]),SharedModule,
     ReactiveFormsModule,
-    
+    SharedModule
   ],
   providers: [
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
+    provideAnimationsAsync(), // Agrega esta línea
+
   ],
   bootstrap: [] // No se especifica ningún componente para arrancar la aplicación aquí
 })
