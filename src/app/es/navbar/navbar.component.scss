@@ -5,12 +5,15 @@
   background: linear-gradient(to bottom, #000000, rgba(0, 0, 0, 0));
 }
 .navbar-nav {
+  
   margin-left: auto;
 }
 .nav-item {
+  
   margin-right: 10px;
 }
 .nav-link {
+  
   cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
   color: white;
   font-size: 25px;
@@ -22,9 +25,17 @@
   color: #ff0000;
   transform: scale(1.1);
 }
+// Estilo de la barra de navegación
 .navbar-logo {
-  max-width: 130px;
+  max-width: 130px; // Ajustado a 130px como solicitaste
+  transform: scale(1.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: scale(1.3); // Aumentado para un efecto más notorio en el hover
+  }
 }
+
 .nav-link button {
   background: none; /* Sin fondo */
   border: none; /* Sin borde */

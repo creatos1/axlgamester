@@ -46,7 +46,7 @@
         </div>
         <form [formGroup]="form" (ngSubmit)="submit()">
           <a style="color:white">Correo electrónico</a>
-          <input type="email" name="email" formControlName="email">
+          <input type="email" formControlName="email">
           <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
             <small *ngIf="form.get('email')?.hasError('required')" style="color:rgb(255, 0, 0)">Este campo es requerido</small>
             <small *ngIf="form.get('email')?.hasError('email')" style="color:rgb(255, 0, 0)">El correo debe ser válido</small>
@@ -55,13 +55,12 @@
           <br>
         
           <a style="color:white">Contraseña</a>
-          <input type="password" name="password" formControlName="password" (input)="calculatePasswordStrength(form.get('password')?.value)">
+          <input type="password" formControlName="password" (input)="calculatePasswordStrength(form.get('password')?.value)">
           <div *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
             <small *ngIf="form.get('password')?.hasError('required')" style="color:rgb(255, 0, 0)">Este campo es requerido</small>
             <small *ngIf="form.get('password')?.hasError('minlength')" style="color:rgb(255, 0, 0)">La contraseña debe tener al menos 8 caracteres</small>
           </div>
         
-          <!-- Password strength indicator -->
           <div *ngIf="passwordStrength">
             <small style="color:green " *ngIf="passwordStrength === 'alta'">CONTRASEÑA: TITÁNICA</small>
             <small style="color:rgb(255, 204, 0)" *ngIf="passwordStrength === 'media'">CONTRASEÑA: ESPARTANA</small>
@@ -71,7 +70,7 @@
           <br>
         
           <a style="color:white">Confirmar Contraseña</a>
-          <input type="password" name="confirmPassword" formControlName="confirmPassword">
+          <input type="password" formControlName="confirmPassword">
           <div *ngIf="form.get('confirmPassword')?.touched && !passwordsMatch()">
             <small style="color:rgb(255, 0, 0)">Las contraseñas no coinciden</small>
           </div>
@@ -83,8 +82,7 @@
             {{ errorMessage }}
           </div>
         
-          <!-- Success message -->
-          <div  style="text-align:center;" *ngIf="successMessage" style="color:green">
+          <div style="text-align:center;" *ngIf="successMessage" style="color:green">
             {{ successMessage }}
           </div>
         </form>
@@ -95,30 +93,18 @@
         
         
         
+        
         <div class="pie-form">
           <a href="/essesion.es">¿Ya tienes cuenta? Inicia sesión</a>
         </div>
+        <div class="inferior">
+          <a href="/home.es">Volver</a>
+        </div>
       </div>
-      <div class="inferior">
-        <a href="#">Volver</a>
-      </div>
+
     </div>
   </div>
 </section>
 <section >
-    <footer>
-        <div class="footer-content"><br>
-          <h5>AXL GAMESTER</h5><br>
-          <div class="social-icons">
-            <a href="https://www.facebook.com/profile.php?id=61557729908419" target="_blank"><i class="fab fa-facebook"></i></a>
-            <a href="https://www.tiktok.com/@axlgamester" target="_blank"><i class="fab fa-tiktok"></i></a>
-            <a href="https://www.instagram.com/axl_gamester/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.youtube.com/@AxlGamester" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://discord.gg/X78yUfMenP" target="_blank"><i class="fab fa-discord"></i></a>
-            <a href="https://www.twitch.tv/axlgamester/" target="_blank"><i class="fab fa-twitch"></i></a>
-          </div><br>
-          <p class="card-text">Las imágenes que se muestran en este sitio web no pertenecen a AxlGamester, todo el crédito a sus respectivos dueños.</p>
-          <br>
-        </div>
-      </footer>
+  <app-footer></app-footer>
 </section>

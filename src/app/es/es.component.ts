@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';  // Para manejar observables
 @Component({
   selector: 'app-es',
   templateUrl: './es.component.html',
-  styleUrls: ['./es.component.css']
+  styleUrls: ['./es.component.scss']
 })
 
 export class EsComponent implements OnInit {

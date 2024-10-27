@@ -181,19 +181,23 @@ footer {
   color: #fff;
   font-family: 'god';
   text-align: center;
-  padding-right: 30px;
-  padding-left: 30px;
 }
-
+@media (max-width: 768px) {
+  footer {
+    padding-bottom: 60px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
 .footer-content {
   display: inline;
   justify-content: center;
   align-items: center;
 }
-
 .footer-content p {
   flex: 1;
 }
+
 
 .social-icons a {
   color: #ff0000;

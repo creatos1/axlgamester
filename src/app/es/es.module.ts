@@ -15,6 +15,9 @@ import { AcercaesComponent } from './acercaes/acercaes.component';
 import { EssesionComponent } from './essesion/essesion.component';
 import { CardListComponent } from '../shared/card-list-component/card-list-component.component'; // Importa tu componente
 import { AdminComponent } from './admin/admin.component';
+import { FooterComponent } from './footer/footer.component';
+import { EsregistroComponent } from './esregistro/esregistro.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,8 +30,12 @@ import { AdminComponent } from './admin/admin.component';
     AcercaesComponent,
     CardListComponent,
     AdminComponent,
+    FooterComponent,
+    EsregistroComponent,
+    EssesionComponent
   ],
   imports: [
+    ReactiveFormsModule,
     CommonModule,
     RouterModule.forChild([]),
     HttpClientModule,
@@ -36,6 +43,6 @@ import { AdminComponent } from './admin/admin.component';
     SharedModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA] ,// Agrega esto para permitir Web Components,
-  exports: [NavbarComponent, CardListComponent] // Exporta el componente si es necesario
+  exports: [NavbarComponent, CardListComponent,FooterComponent,EsregistroComponent,EssesionComponent] // Exporta el componente si es necesario
 })
 export class EsModule {}

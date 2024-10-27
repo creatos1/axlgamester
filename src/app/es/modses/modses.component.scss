@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+@font-face {
+  font-family: 'god';
+  src: url('../../../assets/font/GODOFWAR.TTF') format('truetype');
+}
 .background-gif {
   position: fixed; /* Cambiado a fixed para mantener el fondo siempre visible */
   top: 0;
@@ -89,7 +95,7 @@
 
 /* General styles for a cleaner look */
 body {
-  font-family: 'Arial', sans-serif;
+
   margin: 0;
   padding: 0;
   background-color: #f4f4f4;
@@ -104,19 +110,38 @@ footer {
   color: #fff;
   font-family: 'god';
   text-align: center;
+  padding: 20px 0; /* Añadido padding para el footer */
+
 }
-@media (max-width: 768px) {
-  footer {
-    padding-bottom: 60px;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-}
+
 .footer-content {
   display: inline;
   justify-content: center;
   align-items: center;
 }
-.footer-content p {
-  flex: 1;
+
+.footer-content a {
+  color: #fff; /* Asegura que los enlaces sean visibles */
+  text-decoration: none; /* Elimina el subrayado */
 }
+
+.footer-content p {
+  margin: 10px 0; /* Espaciado entre el texto */
+}
+.social-icons a {
+  color: #ff0000;
+  text-decoration: none;
+  font-size: 24px;
+  margin: 0 10px;
+  transition: transform 0.3s ease, filter 0.3s ease; // Add filter transition
+
+  &:hover {
+    color: rgb(255, 255, 255);
+    filter: brightness(150%);
+    transform: scale(1.9);
+    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.863); // Add shadow
+  }
+
+  cursor: pointer; // Change cursor on hover
+}
+

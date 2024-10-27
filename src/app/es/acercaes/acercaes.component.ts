@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-acercaes',
   templateUrl: './acercaes.component.html',
-  styleUrls: ['./acercaes.component.css']
+  styleUrls: ['./acercaes.component.scss']
 })
 export class AcercaesComponent implements OnInit {
   isVertical: boolean = false;

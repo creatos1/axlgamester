@@ -6,10 +6,8 @@ import { Router } from '@angular/router';
 import { UserService } from '../../auth/user.service';
 
 @Component({
-  standalone: true,
   selector: 'app-iniciar-sesion',
   templateUrl: './essesion.component.html',
-  imports: [ReactiveFormsModule, CommonModule],
   styleUrls: ['./essesion.component.css'],
 })
 export class EssesionComponent {

@@ -7,7 +7,7 @@ import { CardListComponent } from '../../shared/card-list-component/card-list-co
 @Component({
   selector: 'app-modses',
   templateUrl: './modses.component.html',
-  styleUrls: ['./modses.component.css'], // Corrige aquí `styleUrl` a `styleUrls`
+  styleUrls: ['./modses.component.scss'], // Corrige aquí `styleUrl` a `styleUrls`
 })
 export class ModsesComponent implements OnInit {
   public email: string | null = '';

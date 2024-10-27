@@ -1,0 +1,48 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+
+@font-face {
+  font-family: 'god';
+  src: url('../../../assets/font/GODOFWAR.TTF') format('truetype');
+}
+footer {
+    background-color: #000000;
+    color: #fff;
+    font-family: 'god';
+    text-align: center;
+    padding-top: 30px;
+  }
+  @media (max-width: 768px) {
+    footer {
+      padding-bottom: 60px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+  .footer-content {
+    display: inline;
+    justify-content: center;
+    align-items: center;
+  }
+  .footer-content p {
+    flex: 1;
+  }
+  
+  .social-icons a {
+    color: #ff0000;
+    text-decoration: none;
+    font-size: 24px;
+    margin: 0 10px;
+    transition: transform 0.3s ease, filter 0.3s ease; // Add filter transition
+  
+    &:hover {
+      color: rgb(255, 255, 255);
+      filter: brightness(150%);
+      transform: scale(1.9);
+      box-shadow: 0 4px 10px rgba(255, 0, 0, 0.863); // Add shadow
+    }
+  
+    cursor: pointer; // Change cursor on hover
+  }
+  

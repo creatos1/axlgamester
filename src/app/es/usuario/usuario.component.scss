@@ -1,26 +1,83 @@
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #000000; /* Fondo oscuro para resaltar contenido */
+  color: #fff;
+  font-family: Arial, sans-serif;
+  border-radius: 8px;
+
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+}
+body{
+  background-color: black;
+}
+.usuario-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.usuario-container h1 {
+  font-size: 2rem;
+  color: #ff0000; /* Color dorado para destacar */
+  text-transform: uppercase;
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ff0000;
+}
+
 .usuario-dropdown {
-    background-color: #f9f9f9;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    width: 200px;
-  }
-  
-  .usuario-dropdown p {
-    font-size: 14px;
-    margin: 0 0 10px;
-  }
-  
-  .btn-logout {
-    background-color: #ff4b5c;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .btn-logout:hover {
-    background-color: #ff1f3f;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #525252;
+  padding: 15px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 400px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.usuario-icon {
+  width: 200px; /* Ajusta el tamaño según sea necesario */
+  height: 200px; /* Mantén la proporción si es necesario */
+  border-radius: 50%; /* Opcional: hace que la imagen sea redonda */
+  margin-bottom: 10px; /* Espacio entre la imagen y el texto */
+  border: 10px solid rgb(255, 255, 255);
+}
+
+
+.usuario-dropdown p {
+  font-size: 1.1rem;
+  margin: 10px 0;
+}
+
+.btn-logout {
+  background-color: #ff4b4b; /* Rojo para el botón de cerrar sesión */
+  color: #fff;
+  font-size: 1rem;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-logout:hover {
+  background-color: #ff1a1a; /* Oscurece al pasar el mouse */
+}
+
+app-image-upload {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 600px;
+  background-color: #2c2c2c;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+app-nav {
+  width: 100%;
+}
