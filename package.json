@@ -32,7 +32,6 @@
     "jquery": "^3.7.1",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.11.3",
-    "ngx-slick-carousel": "^17.0.0",
     "ngx-spinner": "^17.0.0",
     "particles.js": "^2.0.0",
     "popper.js": "^1.16.1",
@@ -54,7 +53,8 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.5.4"
+    "typescript": "~5.5.4",
+    "webpack-bundle-analyzer": "^4.10.2"
   },
   "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.3.",
   "main": "index.js",

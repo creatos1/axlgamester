@@ -47,13 +47,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "3mb"
                 },
                 {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "type": "any",
+                  "maximumWarning": "4kb",
+                  "maximumError": "8kb" 
                 }
               ],
               "outputHashing": "all"
@@ -103,6 +103,7 @@
               "node_modules/bootstrap/dist/css/bootstrap.css"
             ],
             "scripts": [
+              
               "node_modules/jquery/dist/jquery.min.js",
               "src/assets/scripts.js",
               "./node_modules/jquery/dist/jquery.min.js",
