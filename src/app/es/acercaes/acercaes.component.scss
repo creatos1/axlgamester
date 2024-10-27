@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+
+$color-primary: #ff1e00;
+$color-secondary: #1a1a1d;
+$color-accent: #f0a500;
+$color-background: #121212;
+$color-text: #f5f5f5;
+
+.side-by-side-section {
+    display: flex;
+    background-color: #000;
+  }
+  @media (max-width: 1100px) {
+    .side-by-side-section {
+      flex-direction: column;
+  
+      .image-container img {
+        height: auto;
+      }
+    }
+  }
+  
+.side-by-side-section {
+    display: flex;
+    background-color: #000;
+  }
+  .image-container {
+  flex: 1;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+.text-container {
+    color: #ffffff;
+    font-family: 'god', sans-serif;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-size: 25px;
+    transition: font-size 0.3s ease;
+  
+    p {
+      text-align: center;
+    }
+  }
+  
+  @media (max-width: 1100px) {
+    .text-container {
+      margin-left: 25px;
+      margin-right: 25px;
+      font-size: 18px; 
+    }
+  }
+  
+  @media (max-width: 1100px) {
+    .side-by-side-section {
+      flex-direction: column;
+
+      .image-container img {
+        height: auto;
+      }
+    }
+  }
+  .eb, .ebnn {
+    background-color: transparent;
+    color: $color-text;
+    border: 2px solid white;
+    padding: 10px 20px;
+    font-size: 1.3rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    animation: fadeIn 0.5s ease-in-out;
+    transform: scale(1.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  
+    &:hover {
+      transform: scale(1.3); // Aumentado para un efecto más notorio en el hover
+  
+      background-color: rgb(255, 255, 255);
+      color: rgb(0, 0, 0);
+      
+    }
+  }
