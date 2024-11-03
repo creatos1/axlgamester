@@ -45,10 +45,26 @@ interface Card {
       <div class="card-overlay">
         <h5 class="card-title">{{ card.title }}</h5>
         <p class="card-text">{{ card.description }}</p>
-        <button class="ebnn" (click)="navigateToDownload(card.link)">Descargar</button>
-      </div>
+        <button class="ebnn" (click)="confirmDownload(card.link)">Descargar</button>
+        </div>
     </div>
   </div>
+<!-- Modal de donación -->
+<div class="donation-modal" *ngIf="showDonationModal">
+  <div class="modal-content">
+    <div class="icon-container">
+      <img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal Icon" class="paypal-icon">
+    </div>
+    <p>¿Te gustaría apoyar con una donación?</p>
+    <div class="modal-buttons">
+      <button (click)="handleDonationResponse(true)">Sí</button>
+      <button (click)="handleDonationResponse(false)">No</button>
+    </div>
+  </div>
+</div>
+
+
+
 </div>
 
   `,
@@ -61,7 +77,9 @@ export class CardListComponent implements OnInit {
   filterType: string = 'all';
   sortField: string = 'title';
   sortDirection: string = 'asc';
-
+  showDonationModal = false;
+  downloadLink: string | null = null; // Guarda el link temporalmente
+  
   constructor(
     private firestore: Firestore,
     private authService: AuthService,
@@ -108,6 +126,27 @@ export class CardListComponent implements OnInit {
 
   toggleFilters() {
     this.filtersVisible = !this.filtersVisible;
+  }
+  confirmDownload(link: string) {
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser) {
+      this.downloadLink = link; // Guardar el link de descarga
+      this.showDonationModal = true; // Mostrar el modal
+    } else {
+      this.router.navigate(['/essesion.es']);
+    }
+  }
+  
+  handleDonationResponse(acceptDonation: boolean) {
+    this.showDonationModal = false;
+    if (acceptDonation) {
+      // Si acepta donar, redirige a PayPal
+      window.open('https://paypal.me/Axlgamesteryt?country.x=MX&locale.x=es_XC', '_blank');
+    } else if (this.downloadLink) {
+      // Si no acepta donar, redirige al enlace de descarga
+      window.open(this.downloadLink, '_blank');
+      this.downloadLink = null; // Limpia el enlace después de usarlo
+    }
   }
 
   navigateToDownload(link: string) {
