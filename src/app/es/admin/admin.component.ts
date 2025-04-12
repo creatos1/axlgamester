@@ -1,4 +1,4 @@
-// admin.component.ts
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
@@ -10,16 +10,16 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class AdminComponent implements OnInit {
   isAdmin: boolean = false;
+  private readonly ADMIN_EMAIL = 'www.gamercracks@gmail.com';
 
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
-    const user = this.authService.getCurrentUser(); // Obtén el usuario actual
-    console.log(user); // Verifica el usuario actual en la consola
-    if (user && user.email === 'www.gamercracks@gmail.com') {
-      this.isAdmin = true; // El usuario es el admin permitido
+    const user = this.authService.getCurrentUser();
+    if (user && user.email === this.ADMIN_EMAIL) {
+      this.isAdmin = true;
     } else {
-      this.router.navigate(['/']); // Redirigir si no es el admin permitido
+      this.router.navigate(['/']);
     }
   }
 }
