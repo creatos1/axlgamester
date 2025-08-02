@@ -2,9 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service'; 
 import { Router } from '@angular/router';
 import { UserService } from '../auth/user.service';
-declare var particlesJS: any; // Declaración de la función particlesJS
-import { CardService } from '../services/card.service'; // Asegúrate de importar tu servicio
-import { Observable } from 'rxjs';  // Para manejar observables
+import { CardService } from '../services/card.service';
+import { YoutubeService } from '../services/youtube.service';
+import { Observable } from 'rxjs';
+
+declare var particlesJS: any;
+
 @Component({
   selector: 'app-es',
   templateUrl: './es.component.html',
@@ -12,41 +15,51 @@ import { Observable } from 'rxjs';  // Para manejar observables
 })
 
 export class EsComponent implements OnInit {
-  public cards$: Observable<any[]> | undefined; // Declaración opcional
-  public slickConfig: any; // Definición de slickConfig
+  public cards$: Observable<any[]> | undefined;
+  public slickConfig: any;
+  public userService = inject(UserService);
 
-  public userService = inject(UserService); 
+  videos: any[] = [];
+
   isVertical: boolean = false;
+  isDropdownOpen: boolean = false;
+  email: string = '';
+  password: string = '';
   audio = new Audio();
-  audioIconSrc = '../../assets/img/sound.png'; // Cambia la ruta al icono de audio activado
-  email: string = ''; // Inicializa como una cadena vacía
-  password: string = ''; // Agrega la propiedad password
-  isDropdownOpen: boolean = false; // Estado del menú desplegable
+  audioIconSrc = '../../assets/img/sound.png';
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private cardService: CardService // Inyecta el servicio de tarjetas
+    private cardService: CardService,
+    private youtubeService: YoutubeService
   ) {}
 
   ngOnInit(): void {
-    this.initializeSlickConfig(); // Inicializa la configuración de slick
+    this.initializeSlickConfig();
+    this.cargarTarjetas();
+    this.configurarParticulas();
+    this.configurarAudio();
 
-    this.cargarTarjetas(); // Carga las tarjetas al iniciar
+    const storedEmail = this.userService.getUserEmail();
+    this.email = storedEmail ? storedEmail : '';
 
-    this.configurarParticulas(); // Configurar partículas al inicializar
-    const storedEmail = this.userService.getUserEmail(); // Obtener el correo del usuario
-    this.email = storedEmail ? storedEmail : ''; // Asignar el correo si no es null
-
-    // Agregar evento de clic al botón para enviar correo
     const botonEnviarCorreo = document.getElementById('enviarCorreo') as HTMLButtonElement;
-    botonEnviarCorreo.addEventListener('click', () => this.redirigirCorreo());
+    if (botonEnviarCorreo) {
+      botonEnviarCorreo.addEventListener('click', () => this.redirigirCorreo());
+    }
 
-    this.configurarAudio(); // Configurar audio al inicializar
+this.youtubeService.getLatestVideos().subscribe((response) => {
+  console.log('📹 Videos cargados:', response); // Añade esto para depurar
+  this.videos = response?.items || [];
+});
+
   }
+
   cargarTarjetas() {
-    this.cards$ = this.cardService.getCards(); // Llama a tu servicio para obtener las tarjetas
+    this.cards$ = this.cardService.getCards();
   }
+
   initializeSlickConfig() {
     this.slickConfig = {
       slidesToShow: 3,
@@ -55,68 +68,43 @@ export class EsComponent implements OnInit {
       infinite: true,
       arrows: true,
       responsive: [
-        {
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-          },
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          },
-        },
-      ],
+        { breakpoint: 768, settings: { slidesToShow: 2, slidesToScroll: 1 } },
+        { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1 } }
+      ]
     };
   }
+
   login() {
     this.authService.login(this.email, this.password).then(() => {
       this.router.navigate(['/home']);
-      this.userService.setUserEmail(this.email); // Asegúrate de guardar el email aquí
+      this.userService.setUserEmail(this.email);
     }).catch(error => {
       console.error('Error al iniciar sesión:', error);
+    });
+  }
+
+  logout() {
+    this.authService.logout().then(() => {
+      this.userService.clearUser();
+      this.email = '';
+      this.router.navigate(['/home']);
     });
   }
 
   toggleVertical() {
     this.isVertical = !this.isVertical;
   }
+
   toggleDropdown(event: MouseEvent) {
-    event.stopPropagation(); // Previene que el clic se propague a otros elementos
-    this.isDropdownOpen = !this.isDropdownOpen; // Alterna la visibilidad del menú desplegable
-  }
-  
-  
-
-  
-
-  logout() {
-    this.authService.logout().then(() => {
-      this.userService.clearUser(); // Limpia el usuario del servicio
-      this.email = ''; // Limpia el correo localmente
-      this.router.navigate(['/home']); // Redirige a la página de inicio
-    });
+    event.stopPropagation();
+    this.isDropdownOpen = !this.isDropdownOpen;
   }
 
   redirigirCorreo() {
-    // Verificar si es un dispositivo móvil
     const esDispositivoMovil = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-    // URL del correo electrónico
-    let correoURL: string;
-
-    if (esDispositivoMovil) {
-      // Redirigir a un enlace mailto:
-      correoURL = 'mailto:www.gamercracks@gmail.com';
-    } else {
-      // Redirigir al cliente de correo de Gmail
-      correoURL = 'https://mail.google.com/mail/?view=cm&fs=1&to=www.gamercracks@gmail.com';
-    }
-
-    // Redirigir
+    const correoURL = esDispositivoMovil
+      ? 'mailto:www.gamercracks@gmail.com'
+      : 'https://mail.google.com/mail/?view=cm&fs=1&to=www.gamercracks@gmail.com';
     window.location.href = correoURL;
   }
   configurarParticulas() {

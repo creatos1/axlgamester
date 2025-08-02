@@ -234,3 +234,65 @@ footer {
     margin: 0 10px; /* Ajuste para pantallas pequeñas */
   }
 }
+
+/* Checkbox de términos y condiciones */
+#login label {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #ffffff;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+#login input[type="checkbox"] {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+  accent-color: #ff0000; /* rojo acorde a tu estilo */
+}
+
+/* Enlaces dentro del texto del label */
+#login a {
+  color: #00bfff; /* celeste claro */
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+#login a:hover {
+  color: #ff9e9e;
+}
+
+/* Mensajes de validación */
+#login small {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.85rem;
+}
+/* Botón desplegable */
+.desplegable {
+  background-color: transparent;
+  color: #00bfff;
+  border: 1px solid #00bfff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-family: 'Overpass', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.desplegable:hover {
+  background-color: rgba(0, 191, 255, 0.1);
+}
+
+/* Texto de términos y aviso */
+.texto-legal {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #e4e4e4;
+}

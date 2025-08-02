@@ -7,6 +7,7 @@ interface FormSignUp {
   email: FormControl<string | null>;
   password: FormControl<string | null>;
   confirmPassword: FormControl<string | null>;
+  acceptTerms: FormControl<boolean | null>;
 }
 
 // Validador personalizado para contraseña
@@ -28,7 +29,7 @@ function customPasswordValidator(control: AbstractControl): ValidationErrors | n
   if (!/[^a-zA-Z0-9]/.test(password)) {
     errors.specialChar = true;
   }
-  
+
   // Validar números consecutivos (ej: 123, 456)
   const digits = password.match(/\d+/g);
   if (digits) {
@@ -62,8 +63,10 @@ function customPasswordValidator(control: AbstractControl): ValidationErrors | n
   styleUrls: ['./esregistro.component.css'],
 })
 export class EsregistroComponent {
-  
   isVertical: boolean = false;
+  mostrarTerminos: boolean = false;
+mostrarAviso: boolean = false;
+
   private authService = inject(AuthService);
   private _formBuilder = inject(FormBuilder);
   private router = inject(Router);
@@ -82,6 +85,7 @@ export class EsregistroComponent {
       customPasswordValidator,
     ]),
     confirmPassword: this._formBuilder.control<string | null>(null, Validators.required),
+    acceptTerms: this._formBuilder.control<boolean | null>(false, Validators.requiredTrue),
   });
 
   calculatePasswordStrength(password: string | null | undefined) {

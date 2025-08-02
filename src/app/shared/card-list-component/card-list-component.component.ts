@@ -18,9 +18,7 @@ interface Card {
   styleUrls: ['./card-list-component.component.css'],
   template: `
     <div class="container">
-  <div class="hamburger" (click)="toggleFilters()">
-    &#9776; <!-- Ícono de hamburguesa -->
-  </div>
+ 
 
   <aside class="filter-section" [ngClass]="{ 'active': filtersVisible }">
     <section>

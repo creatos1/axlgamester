@@ -100,6 +100,41 @@
             <small style="color:rgb(255, 0, 0)">Las contraseñas no coinciden</small>
           </div>
 
+
+          <!-- Botón para mostrar términos -->
+<div style="margin-top: 10px;">
+  <button type="button" (click)="mostrarTerminos = !mostrarTerminos" class="desplegable">
+    {{ mostrarTerminos ? 'Ocultar Términos y Condiciones' : 'Ver Términos y Condiciones' }}
+  </button>
+  <div *ngIf="mostrarTerminos" class="texto-legal">
+    <p><strong>Términos y Condiciones</strong></p>
+    <p>Al registrarte, aceptas cumplir con las normas de uso del sitio. Está prohibido el uso malintencionado del servicio. Nos reservamos el derecho de suspender cuentas que infrinjan estas reglas.</p>
+  </div>
+</div>
+
+<!-- Botón para mostrar aviso -->
+<div style="margin-top: 10px;">
+  <button type="button" (click)="mostrarAviso = !mostrarAviso" class="desplegable">
+    {{ mostrarAviso ? 'Ocultar Aviso de Privacidad' : 'Ver Aviso de Privacidad' }}
+  </button>
+  <div *ngIf="mostrarAviso" class="texto-legal">
+    <p><strong>Aviso de Privacidad</strong></p>
+    <p>Tu información será tratada de forma confidencial. Solo se utilizará para crear y administrar tu cuenta, y no será compartida con terceros sin tu consentimiento.</p>
+  </div>
+</div>
+
+<!-- Checkbox de aceptación -->
+<div style="margin-top: 10px; color: white;">
+  <label>
+    <input type="checkbox" formControlName="acceptTerms" style="margin-right: 5px;">
+    Acepto los términos y condiciones y el aviso de privacidad.
+  </label>
+  <div *ngIf="form.get('acceptTerms')?.touched && form.get('acceptTerms')?.invalid">
+    <small style="color: red;">Debes aceptar los términos y condiciones.</small>
+  </div>
+</div>
+
+
           <button type="submit" title="Registrar" [disabled]="form.invalid">Registrarse</button>
 
           <br><br>

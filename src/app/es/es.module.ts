@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SafeUrlPipe } from './safe-url.pipe';
 
 import { EsComponent } from './es.component';
 import { UsuarioComponent } from './usuario/usuario.component';
@@ -32,7 +33,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AdminComponent,
     FooterComponent,
     EsregistroComponent,
-    EssesionComponent
+    EssesionComponent,
+    SafeUrlPipe
   ],
   imports: [
     ReactiveFormsModule,

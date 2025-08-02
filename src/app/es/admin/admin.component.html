@@ -1,3 +1,55 @@
 <h1>Admin Panel</h1>
 <p>Bienvenido al panel de administración.</p>
-<app-image-upload></app-image-upload>
+
+<!-- ✅ NAV TABS -->
+<div class="admin-tabs">
+  <button [class.active]="activeTab === 'images'" (click)="activeTab = 'images'">Subir Imágenes</button>
+  <button [class.active]="activeTab === 'users'" (click)="activeTab = 'users'">Gestionar Usuarios</button>
+</div>
+
+<!-- ✅ CONTENIDO DE IMÁGENES -->
+<div *ngIf="activeTab === 'images'" class="tab-content">
+  <h2>Subir Imágenes</h2>
+  <app-image-upload></app-image-upload>
+</div>
+
+<!-- ✅ CONTENIDO DEL CRUD DE USUARIOS -->
+<div *ngIf="activeTab === 'users'" class="tab-content">
+  <h2>Usuarios Registrados</h2>
+
+  <!-- Agregar usuario -->
+  <div class="add-user-form">
+    <input [(ngModel)]="newUser.email" placeholder="Correo">
+    <select [(ngModel)]="newUser.role">
+      <option value="user">User</option>
+      <option value="admin">Admin</option>
+    </select>
+    <button (click)="addUser()">Agregar</button>
+  </div>
+
+  <!-- Tabla usuarios -->
+  <table>
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td><input [(ngModel)]="user.email"></td>
+        <td>
+          <select [(ngModel)]="user.role">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+        </td>
+        <td>
+          <button (click)="updateUser(user)">Actualizar</button>
+          <button (click)="deleteUser(user.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
