@@ -1,49 +1,100 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
-# Compiled output
+# -----------------------------------
+# OUTPUT & COMPILED FILES
+# -----------------------------------
 /dist
 /tmp
 /out-tsc
 /bazel-out
+/.angular/cache
+/.angular/web
 
-# Node
+# -----------------------------------
+# DEPENDENCIES
+# -----------------------------------
 /node_modules
-npm-debug.log
-yarn-error.log
+/package-lock.json
+/yarn.lock
 
-# IDEs and editors
-.idea/
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+# -----------------------------------
+# LOGS & DEBUG FILES
+# -----------------------------------
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
 
-# Visual Studio Code
+# -----------------------------------
+# IDEs & EDITORS
+# -----------------------------------
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-.history/*
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
+.idea/
+.project
+.classpath
+.settings/
+*.sublime-workspace
+*.sublime-project
+.c9/
 
-# System files
+# -----------------------------------
+# SYSTEM FILES
+# -----------------------------------
 .DS_Store
 Thumbs.db
+ehthumbs.db
+*.swp
+*.tmp
 
-# Firebase
-.firebase
-*-debug.log
+# -----------------------------------
+# FIREBASE
+# -----------------------------------
+.firebase/
+.firebaserc
+.firebase.json
+.storage/
 .runtimeconfig.json
 
+# -----------------------------------
+# VERCEL / NETLIFY / DEPLOY CONFIGS
+# -----------------------------------
 .vercel
+.netlify
+.netlify.toml
+
+# -----------------------------------
+# COVERAGE / TEST
+# -----------------------------------
+/coverage
+/karma-coverage
+testem.log
+/lcov-report
+
+# -----------------------------------
+# TYPINGS & TYPES
+# -----------------------------------
+/typings
+*.d.ts
+
+# -----------------------------------
+# ENVIRONMENT VARIABLES / SECRETS
+# -----------------------------------
+.env
+.env.*.local
+*.env.local
+
+# -----------------------------------
+# HISTORY & MISC
+# -----------------------------------
+.history/
+connect.lock
+libpeerconnection.log
+
+# -----------------------------------
+# OPTIONAL: REMOVE THESE FOR REPLIT SPACE SAVING
+# (Comment or uncomment as needed)
+/package-lock.json
+/yarn.lock
