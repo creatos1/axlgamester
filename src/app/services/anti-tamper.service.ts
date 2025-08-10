@@ -113,6 +113,7 @@ export class AntiTamperService {
         e.stopPropagation();
         return false;
       }
+      return true;
     });
   }
 
