@@ -55,7 +55,7 @@
               <small style="color:rgb(255, 0, 0); text-align:center;" *ngIf="form.get('email')?.errors?.['email']">Correo no válido.</small>
             </div>
           </div>
-      
+
           <div>
             <label style="color:white" for="password">Contraseña</label>
             <input id="password" formControlName="password" type="password" required />
@@ -64,13 +64,19 @@
               <small style="color:rgb(255, 0, 0)" *ngIf="form.get('password')?.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres.</small>
             </div>
           </div>
-      
+
           <button type="submit" [disabled]="form.invalid">Iniciar Sesión</button>
-          <br>
-          <div style="color:rgb(255, 0, 0)" *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-          <br>
-          <div style="color:green; text-align:center;"*ngIf="successMessage" class="success">{{ successMessage }}</div>
         </form>
+
+        <div class="forgot-password">
+          <button type="button" class="link-btn" (click)="goToPasswordReset()">
+            ¿Olvidaste tu contraseña?
+          </button>
+        </div>
+        <br>
+        <div style="color:rgb(255, 0, 0)" *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+        <br>
+        <div style="color:green; text-align:center;"*ngIf="successMessage" class="success">{{ successMessage }}</div>
         <div class="pie-form">
 
           <a href="/esregistro.es">¿No tienes Cuenta? Regístrate</a>

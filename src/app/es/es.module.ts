@@ -20,6 +20,7 @@ import { FooterComponent } from './footer/footer.component';
 import { EsregistroComponent } from './esregistro/esregistro.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalVerificationComponent } from './modal-verification/modal-verification.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ModalVerificationComponent } from './modal-verification/modal-verificat
     EsregistroComponent,
     EssesionComponent,
     SafeUrlPipe,
-    ModalVerificationComponent
+    ModalVerificationComponent,
+    PasswordResetComponent
   ],
   imports: [
     ReactiveFormsModule,

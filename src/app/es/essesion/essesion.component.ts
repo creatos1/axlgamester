@@ -65,8 +65,14 @@ export class EssesionComponent {
       return 'La contraseña es incorrecta.';
     } else if (error.code === 'auth/user-not-found') {
       return 'No se encontró un usuario con este correo.';
+    } else if (error.message && error.message.includes('verifica tu email')) {
+      return error.message;
     } else {
       return 'Error al iniciar sesión. Intenta nuevamente.';
     }
+  }
+
+  goToPasswordReset() {
+    this.router.navigate(['/password-reset.es']);
   }
 }

@@ -142,7 +142,26 @@ body {
 }
 
 #login button:hover {
-  background-color: #c70000;
+  background-color: #a85200;
+}
+
+.forgot-password {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #ff6600;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.link-btn:hover {
+  color: #ff8533;
 }
 
 .pie-form {
@@ -210,11 +229,11 @@ footer {
 /* Media Queries */
 @media (max-width: 768px) {
 
-  
+
   .titulo {
     font-size: 2rem; /* Ajuste para móviles */
   }
-  
+
   #contenedor {
     padding: 10px; /* Ajuste para móviles */
   }

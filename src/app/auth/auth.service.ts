@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, User, sendEmailVerification } from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, User, sendEmailVerification, sendPasswordResetEmail } from '@angular/fire/auth';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';  // 🔑 AÑADE ESTO
 import { BehaviorSubject } from 'rxjs';
 
@@ -84,5 +84,18 @@ export class AuthService {
 
   getCurrentUser(): User | null {
     return this.currentUserSubject.value;
+  }
+
+  async sendPasswordResetEmail(email: string) {
+    try {
+      await sendPasswordResetEmail(this.auth, email, {
+        url: window.location.origin + '/essesion.es',
+        handleCodeInApp: false
+      });
+      console.log('Correo de recuperación enviado');
+    } catch (error) {
+      console.error('Error enviando correo de recuperación:', error);
+      throw error;
+    }
   }
 }

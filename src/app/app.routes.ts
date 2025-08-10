@@ -23,6 +23,7 @@ export const routes: Routes = [
   { path: 'essesion.es', component: EssesionComponent },
   { path: 'esregistro.es', component: EsregistroComponent },
   { path: 'usuario.es', component: UsuarioComponent },
+  { path: 'password-reset.es', component: PasswordResetComponent },
   { path: '**', redirectTo: '/inicio', pathMatch: 'full' },
 ];
 
