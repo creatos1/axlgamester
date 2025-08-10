@@ -28,10 +28,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  border-bottom: 1px solid #444;
-  
+  border-bottom: 1px solid #000000;
+
   h2 {
-    color: #00ff00;
+    color: #ffffff;
     margin: 0;
     font-family: 'Bebas Neue', sans-serif;
   }
@@ -49,7 +49,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   &:hover {
     color: #ff0000;
   }
@@ -59,31 +59,31 @@
   padding: 30px;
   text-align: center;
   color: #fff;
-  
+
   .success-icon {
     font-size: 60px;
     color: #00ff00;
     margin-bottom: 20px;
-    
+
     i {
       animation: pulse 2s infinite;
     }
   }
-  
+
   h3 {
     color: #fff;
     margin-bottom: 20px;
     font-family: 'Bebas Neue', sans-serif;
   }
-  
+
   p {
     margin-bottom: 15px;
     line-height: 1.5;
   }
-  
+
   .email-highlight {
-    background-color: rgba(255, 255, 0, 0.1);
-    color: #ffff00;
+    background-color: rgba(255, 0, 0, 0.1);
+    color: #ff0000;
     padding: 10px;
     border-radius: 5px;
     font-weight: bold;
@@ -107,7 +107,7 @@
   font-weight: bold;
   transition: all 0.3s ease;
   min-width: 120px;
-  
+
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
@@ -115,20 +115,20 @@
 }
 
 .resend-btn {
-  background-color: #007bff;
+  background-color: #850000;
   color: white;
-  
+
   &:hover:not(:disabled) {
-    background-color: #0056b3;
+    background-color: #420000;
   }
 }
 
 .continue-btn {
-  background-color: #28a745;
+  background-color: #9f0000;
   color: white;
-  
+
   &:hover {
-    background-color: #1e7e34;
+    background-color: #410000;
   }
 }
 
@@ -154,7 +154,7 @@
   .modal-actions {
     flex-direction: column;
     align-items: center;
-    
+
     .resend-btn, .continue-btn {
       width: 100%;
       max-width: 200px;
