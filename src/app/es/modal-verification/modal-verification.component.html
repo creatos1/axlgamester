@@ -1,0 +1,39 @@
+
+<div class="modal-overlay" *ngIf="isVisible" (click)="close()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>¡Registro Exitoso!</h2>
+      <button class="close-btn" (click)="close()">&times;</button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="success-icon">
+        <i class="fas fa-envelope-check"></i>
+      </div>
+      
+      <h3>Verifica tu correo electrónico</h3>
+      
+      <p>Se ha enviado un correo de verificación a:</p>
+      <p class="email-highlight">{{ userEmail }}</p>
+      
+      <p>Por favor, revisa tu bandeja de entrada y haz clic en el enlace de verificación para activar tu cuenta.</p>
+      
+      <div class="modal-actions">
+        <button 
+          class="resend-btn" 
+          (click)="resendVerificationEmail()" 
+          [disabled]="isResending">
+          {{ isResending ? 'Enviando...' : 'Reenviar correo' }}
+        </button>
+        
+        <button class="continue-btn" (click)="close()">
+          Entendido
+        </button>
+      </div>
+      
+      <p class="note">
+        <small>Si no encuentras el correo, revisa tu carpeta de spam.</small>
+      </p>
+    </div>
+  </div>
+</div>

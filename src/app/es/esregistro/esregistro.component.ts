@@ -74,6 +74,8 @@ mostrarAviso: boolean = false;
   successMessage: string | null = null;
   errorMessage: string | null = null;
   passwordStrength: string = '';
+  showVerificationModal: boolean = false;
+  registeredEmail: string = '';
 
   form = this._formBuilder.group<FormSignUp>({
     email: this._formBuilder.control<string | null>(null, [
@@ -118,11 +120,8 @@ mostrarAviso: boolean = false;
       this.authService.register(email, password)
         .then(() => {
           this.errorMessage = null;
-          this.successMessage = 'Usuario registrado exitosamente. Se ha enviado un correo de verificación a tu email. Por favor, verifica tu correo antes de iniciar sesión.';
-          setTimeout(() => {
-            this.successMessage = null;
-            this.router.navigate(['/essesion.es']);
-          }, 5000);
+          this.registeredEmail = email;
+          this.showVerificationModal = true;
         })
         .catch(error => {
           console.error('Error al registrar el usuario:', error);
@@ -137,5 +136,10 @@ mostrarAviso: boolean = false;
 
   toggleVertical() {
     this.isVertical = !this.isVertical;
+  }
+
+  closeVerificationModal() {
+    this.showVerificationModal = false;
+    this.router.navigate(['/essesion.es']);
   }
 }

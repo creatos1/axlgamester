@@ -7,8 +7,8 @@ import { SafeUrlPipe } from './safe-url.pipe';
 
 import { EsComponent } from './es.component';
 import { UsuarioComponent } from './usuario/usuario.component';
-import { SharedModule } from '../shared/shared.module'; 
-import { NavbarComponent } from './navbar/navbar.component'; 
+import { SharedModule } from '../shared/shared.module';
+import { NavbarComponent } from './navbar/navbar.component';
 import { ModsesComponent } from './modses/modses.component';
 import { GaleriaesComponent } from './galeriaes/galeriaes.component';
 import { DonacionesComponent } from './donaciones/donaciones.component';
@@ -19,6 +19,7 @@ import { AdminComponent } from './admin/admin.component';
 import { FooterComponent } from './footer/footer.component';
 import { EsregistroComponent } from './esregistro/esregistro.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ModalVerificationComponent } from './modal-verification/modal-verification.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     EsregistroComponent,
     EssesionComponent,
-    SafeUrlPipe
+    SafeUrlPipe,
+    ModalVerificationComponent
   ],
   imports: [
     ReactiveFormsModule,
