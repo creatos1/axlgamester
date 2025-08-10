@@ -1,13 +1,12 @@
-
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class SecurityInterceptor implements HttpInterceptor {
-  
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
+
     // Agregar headers de seguridad
     const secureReq = req.clone({
       setHeaders: {
@@ -18,10 +17,12 @@ export class SecurityInterceptor implements HttpInterceptor {
         'Referrer-Policy': 'strict-origin-when-cross-origin',
         'Cache-Control': 'no-cache, no-store, must-revalidate',
         'Pragma': 'no-cache',
-        'Expires': '0'
+        'Expires': '0',
+        'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+        'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' https://firebaseapp.com https://*.firebaseapp.com https://www.gstatic.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https:; media-src 'self'"
       }
     });
-    
+
     // Validar que la URL sea segura
     if (this.isUrlSafe(req.url)) {
       return next.handle(secureReq);
@@ -29,7 +30,7 @@ export class SecurityInterceptor implements HttpInterceptor {
       throw new Error('URL no segura detectada');
     }
   }
-  
+
   private isUrlSafe(url: string): boolean {
     // Lista de patrones peligrosos
     const dangerousPatterns = [
@@ -40,7 +41,7 @@ export class SecurityInterceptor implements HttpInterceptor {
       /eval\s*\(/i,
       /expression\s*\(/i
     ];
-    
+
     return !dangerousPatterns.some(pattern => pattern.test(url));
   }
 }
