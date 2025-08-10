@@ -4,3 +4,39 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Estilos de seguridad */
+.security-warning {
+  border: 2px solid #ff4444 !important;
+  background-color: rgba(255, 68, 68, 0.1) !important;
+  animation: securityPulse 0.5s ease-in-out;
+}
+
+@keyframes securityPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+/* Ocultar elementos potencialmente peligrosos */
+script[src*="eval"],
+script[src*="javascript:"],
+iframe[src*="javascript:"],
+object,
+embed {
+  display: none !important;
+}
+
+/* Protección adicional contra clickjacking */
+html {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+input, textarea, [contenteditable] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}

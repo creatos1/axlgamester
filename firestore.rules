@@ -1,0 +1,45 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Reglas estrictas para usuarios
+    match /users/{userId} {
+      // Solo el usuario autenticado puede leer/escribir sus propios datos
+      allow read, write: if request.auth != null 
+        && request.auth.uid == userId
+        && request.auth.token.email_verified == true;
+      
+      // Los administradores pueden leer todos los usuarios
+      allow read: if request.auth != null 
+        && request.auth.token.email_verified == true
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Validación de datos de entrada
+    match /users/{userId} {
+      allow create: if request.auth != null
+        && request.auth.uid == userId
+        && request.auth.token.email_verified == true
+        && isValidUserData(request.resource.data);
+      
+      allow update: if request.auth != null
+        && request.auth.uid == userId
+        && request.auth.token.email_verified == true
+        && isValidUserData(request.resource.data);
+    }
+    
+    // Función para validar datos de usuario
+    function isValidUserData(data) {
+      return data.keys().hasAll(['email', 'createdAt', 'role'])
+        && data.email is string
+        && data.email.size() <= 254
+        && data.role in ['user', 'admin']
+        && data.createdAt is timestamp;
+    }
+    
+    // Denegar todo lo demás por defecto
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

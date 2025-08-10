@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
+import { SecurityService } from '../../services/security.service';
+import { isRequired, hasemailerror, customPasswordValidator, noInjectionValidator } from '../../auth/validators';
 
 interface FormSignUp {
   email: FormControl<string | null>;
@@ -68,6 +70,7 @@ export class EsregistroComponent {
 mostrarAviso: boolean = false;
 
   private authService = inject(AuthService);
+  private securityService = inject(SecurityService);
   private _formBuilder = inject(FormBuilder);
   private router = inject(Router);
 
@@ -81,12 +84,17 @@ mostrarAviso: boolean = false;
     email: this._formBuilder.control<string | null>(null, [
       Validators.required,
       Validators.email,
+      noInjectionValidator() // Agregado validador de inyección para email
     ]),
     password: this._formBuilder.control<string | null>(null, [
       Validators.required,
       customPasswordValidator,
+      noInjectionValidator() // Agregado validador de inyección para password
     ]),
-    confirmPassword: this._formBuilder.control<string | null>(null, Validators.required),
+    confirmPassword: this._formBuilder.control<string | null>(null, [
+      Validators.required,
+      noInjectionValidator() // Agregado validador de inyección para confirmPassword
+    ]),
     acceptTerms: this._formBuilder.control<boolean | null>(false, Validators.requiredTrue),
   });
 
@@ -113,8 +121,9 @@ mostrarAviso: boolean = false;
       return;
     }
 
-    const email = this.form.get('email')?.value as string | null;
-    const password = this.form.get('password')?.value as string | null;
+    // Sanitizar los datos antes de enviarlos
+    const email = this.securityService.sanitizeInput(this.form.get('email')?.value as string);
+    const password = this.securityService.sanitizeInput(this.form.get('password')?.value as string);
 
     if (email && password) {
       this.authService.register(email, password)
