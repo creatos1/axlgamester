@@ -1,9 +1,12 @@
+
 {
-    "/api": {
-      "target": "https://pagead2.googlesyndication.com",
-      "secure": true,
-      "changeOrigin": true,
-      "logLevel": "debug"
+  "/api/youtube/*": {
+    "target": "https://www.googleapis.com",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api/youtube": "/youtube/v3"
     }
   }
-  
+}

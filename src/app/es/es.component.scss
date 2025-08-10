@@ -399,3 +399,24 @@ button.audio-button {
   // gap: 1.5cm; // Aplicar separación directamente al grid de mods
   // O usar margins/padding en .col-md-4
 }
+
+// Aquí puedes agregar estilos específicos para el componente
+// Spinner para carga de videos
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-container {
+  padding: 40px 20px;
+
+  .spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #ff8000;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+    margin: 20px auto;
+  }
+}

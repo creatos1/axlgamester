@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service'; 
+import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from '../auth/user.service';
 import { CardService } from '../services/card.service';
@@ -49,10 +49,8 @@ export class EsComponent implements OnInit {
       botonEnviarCorreo.addEventListener('click', () => this.redirigirCorreo());
     }
 
-this.youtubeService.getLatestVideos().subscribe((response) => {
-  console.log('📹 Videos cargados:', response); // Añade esto para depurar
-  this.videos = response?.items || [];
-});
+    // Cargar videos de YouTube
+    this.loadYouTubeVideos();
 
   }
 
@@ -229,5 +227,54 @@ this.youtubeService.getLatestVideos().subscribe((response) => {
     this.audio.loop = true; // Establece el audio en bucle
     this.audio.play(); // Reproduce automáticamente el audio al cargar la página
   }
-  
+
+  // Helper function to shuffle an array
+  shuffleArray(array: any[]): any[] {
+    let currentIndex = array.length, randomIndex;
+
+    // While there remain elements to shuffle.
+    while (currentIndex !== 0) {
+
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+  }
+
+  loadYouTubeVideos() {
+    console.log('🚀 Iniciando carga de videos de YouTube...');
+    
+    this.youtubeService.getChannelVideos().subscribe({
+      next: (videos) => {
+        console.log('✅ Videos recibidos en el componente:', videos);
+        console.log('📊 Número de videos:', videos.length);
+        
+        this.videos = videos;
+        
+        if (videos.length === 0) {
+          console.warn('⚠️ No se cargaron videos - Array vacío');
+        } else {
+          console.log('🎉 Videos cargados exitosamente');
+          videos.forEach((video, index) => {
+            console.log(`Video ${index + 1}:`, video.snippet?.title);
+          });
+        }
+      },
+      error: (error) => {
+        console.error('❌ Error completo en el componente:', error);
+        this.videos = [];
+      }
+    });
+  }
+
+  // TrackBy function for better performance
+  trackByVideoId(index: number, video: any): string {
+    return video.id?.videoId || index;
+  }
 }
