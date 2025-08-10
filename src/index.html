@@ -43,6 +43,127 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Protección adicional -->
+  <style>
+    /* Deshabilitar selección de texto */
+    * {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    input, textarea, [contenteditable] {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
+
+    /* Ocultar scrollbars en developer tools */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+
+  <!-- Script de protección -->
+  <script>
+    (function() {
+      'use strict';
+      
+      // Deshabilitar click derecho
+      document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+      });
+
+      // Deshabilitar teclas de desarrollador
+      document.addEventListener('keydown', function(e) {
+        // F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S, Ctrl+A, Ctrl+P
+        if (e.keyCode === 123 || 
+            (e.ctrlKey && e.shiftKey && e.keyCode === 73) ||
+            (e.ctrlKey && e.keyCode === 85) ||
+            (e.ctrlKey && e.keyCode === 83) ||
+            (e.ctrlKey && e.keyCode === 65) ||
+            (e.ctrlKey && e.keyCode === 80)) {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      // Detectar herramientas de desarrollador
+      let devtools = {
+        open: false,
+        orientation: null
+      };
+      
+      const threshold = 160;
+      
+      setInterval(() => {
+        if (window.outerHeight - window.innerHeight > threshold || 
+            window.outerWidth - window.innerWidth > threshold) {
+          if (!devtools.open) {
+            devtools.open = true;
+            console.clear();
+            document.body.style.display = 'none';
+            alert('Acceso no autorizado detectado. La página se ha bloqueado.');
+            window.location.href = 'about:blank';
+          }
+        } else {
+          devtools.open = false;
+        }
+      }, 500);
+
+      // Proteger la consola
+      function disableConsole() {
+        const methods = ['log', 'debug', 'info', 'warn', 'error', 'assert', 'dir', 'dirxml', 'group', 'groupEnd', 'time', 'timeEnd', 'count', 'trace', 'profile', 'profileEnd'];
+        for (let i = 0; i < methods.length; i++) {
+          console[methods[i]] = function() {};
+        }
+      }
+
+      // Sobrescribir funciones peligrosas
+      Object.defineProperty(console, '_commandLineAPI', {
+        get: function() {
+          throw new Error('Acceso denegado');
+        }
+      });
+
+      // Bloquear eval
+      window.eval = function() {
+        throw new Error('eval está deshabilitado por seguridad');
+      };
+
+      // Proteger contra inyección de scripts
+      const originalCreateElement = document.createElement;
+      document.createElement = function(tagName) {
+        if (tagName.toLowerCase() === 'script') {
+          throw new Error('Creación de scripts bloqueada');
+        }
+        return originalCreateElement.apply(this, arguments);
+      };
+
+      // Limpiar consola regularmente
+      setInterval(() => {
+        console.clear();
+      }, 1000);
+
+      disableConsole();
+
+      // Detector de debugging
+      let start = Date.now();
+      debugger;
+      if (Date.now() - start > 100) {
+        document.body.style.display = 'none';
+        alert('Debugging detectado. Acceso bloqueado.');
+        window.location.href = 'about:blank';
+      }
+
+    })();
+  </script>
 </head>
 <body class="mat-typography">
   <app-root></app-root>
