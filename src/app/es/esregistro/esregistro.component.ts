@@ -118,11 +118,11 @@ mostrarAviso: boolean = false;
       this.authService.register(email, password)
         .then(() => {
           this.errorMessage = null;
-          this.successMessage = 'Registrando Usuario...';
+          this.successMessage = 'Usuario registrado exitosamente. Se ha enviado un correo de verificación a tu email. Por favor, verifica tu correo antes de iniciar sesión.';
           setTimeout(() => {
             this.successMessage = null;
             this.router.navigate(['/essesion.es']);
-          }, 3000);
+          }, 5000);
         })
         .catch(error => {
           console.error('Error al registrar el usuario:', error);

@@ -1,0 +1,20 @@
+
+<div class="verification-container">
+  <div class="verification-card">
+    <h2>Verificación de Email</h2>
+    <p>{{ message }}</p>
+    
+    <div class="actions" *ngIf="!authService.isEmailVerified()">
+      <button 
+        class="resend-btn" 
+        (click)="resendVerificationEmail()" 
+        [disabled]="isResending">
+        {{ isResending ? 'Enviando...' : 'Reenviar correo de verificación' }}
+      </button>
+      
+      <button class="login-btn" (click)="goToLogin()">
+        Ir al login
+      </button>
+    </div>
+  </div>
+</div>
