@@ -10,6 +10,7 @@ import { EsregistroComponent } from './es/esregistro/esregistro.component';
 import { NgModule } from '@angular/core';
 import { UsuarioComponent } from './es/usuario/usuario.component';
 import { AdminComponent } from './es/admin/admin.component';
+import { PasswordResetComponent } from './es/password-reset/password-reset.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
