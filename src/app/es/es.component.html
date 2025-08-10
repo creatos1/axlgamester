@@ -105,20 +105,7 @@
           </div>
         </div>
 
-        <div *ngIf="videos.length === 0" class="text-center" style="color: white; padding: 50px;">
-          <div class="loading-container">
-            <h3>🔍 Cargando videos de YouTube...</h3>
-            <div class="spinner" style="border: 4px solid #f3f3f3; border-top: 4px solid #ff8000; border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite; margin: 20px auto;"></div>
-            <p style="font-size: 14px; color: #ccc;">
-              Conectando con YouTube API v3...<br>
-              Canal: AxlGamester<br>
-              Si los videos no cargan en 10 segundos, abre F12 para ver los logs
-            </p>
-            <button (click)="loadYouTubeVideos()" class="btn btn-warning mt-3" style="background: #ff8000; border: none; color: white; padding: 10px 20px; border-radius: 5px;">
-              🔄 Reintentar carga
-            </button>
-          </div>
-        </div>
+        
       </div>
       <br><br><br><br>
     </div>

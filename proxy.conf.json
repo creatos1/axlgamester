@@ -7,6 +7,10 @@
     "logLevel": "debug",
     "pathRewrite": {
       "^/api/youtube": "/youtube/v3"
+    },
+    "headers": {
+      "Accept": "application/json",
+      "User-Agent": "Angular-App/1.0"
     }
   }
 }
