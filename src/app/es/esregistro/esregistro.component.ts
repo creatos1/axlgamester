@@ -12,52 +12,7 @@ interface FormSignUp {
   acceptTerms: FormControl<boolean | null>;
 }
 
-// Validador personalizado para contraseña
-function customPasswordValidator(control: AbstractControl): ValidationErrors | null {
-  const password = control.value as string;
-  if (!password) return null;
 
-  const errors: any = {};
-
-  if (password.length < 8) {
-    errors.minLength = true;
-  }
-  if (!/[A-Z]/.test(password)) {
-    errors.uppercase = true;
-  }
-  if (!/[a-z]/.test(password)) {
-    errors.lowercase = true;
-  }
-  if (!/[^a-zA-Z0-9]/.test(password)) {
-    errors.specialChar = true;
-  }
-
-  // Validar números consecutivos (ej: 123, 456)
-  const digits = password.match(/\d+/g);
-  if (digits) {
-    for (const group of digits) {
-      for (let i = 0; i < group.length - 1; i++) {
-        const a = parseInt(group[i]);
-        const b = parseInt(group[i + 1]);
-        if (b - a === 1) {
-          errors.consecutiveNumbers = true;
-        }
-      }
-    }
-  }
-
-  // Validar letras consecutivas (abc, def)
-  const lowerPassword = password.toLowerCase();
-  for (let i = 0; i < lowerPassword.length - 1; i++) {
-    const a = lowerPassword.charCodeAt(i);
-    const b = lowerPassword.charCodeAt(i + 1);
-    if (b - a === 1 && /[a-z]/.test(lowerPassword[i]) && /[a-z]/.test(lowerPassword[i + 1])) {
-      errors.consecutiveLetters = true;
-    }
-  }
-
-  return Object.keys(errors).length > 0 ? errors : null;
-}
 
 @Component({
   selector: 'app-esregistro',
@@ -84,16 +39,16 @@ mostrarAviso: boolean = false;
     email: this._formBuilder.control<string | null>(null, [
       Validators.required,
       Validators.email,
-      noInjectionValidator() // Agregado validador de inyección para email
+      noInjectionValidator
     ]),
     password: this._formBuilder.control<string | null>(null, [
       Validators.required,
       customPasswordValidator,
-      noInjectionValidator() // Agregado validador de inyección para password
+      noInjectionValidator
     ]),
     confirmPassword: this._formBuilder.control<string | null>(null, [
       Validators.required,
-      noInjectionValidator() // Agregado validador de inyección para confirmPassword
+      noInjectionValidator
     ]),
     acceptTerms: this._formBuilder.control<boolean | null>(false, Validators.requiredTrue),
   });

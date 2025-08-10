@@ -95,8 +95,16 @@
           <br>
 
           <a style="color:white">Confirmar Contraseña</a>
-          <input type="password" formControlName="confirmPassword">
-          <div *ngIf="form.get('confirmPassword')?.touched && !passwordsMatch()">
+          <input type="password" formControlName="confirmPassword" />
+          <div *ngIf="form.get('confirmPassword')?.touched && form.get('confirmPassword')?.invalid">
+            <small *ngIf="form.get('confirmPassword')?.hasError('required')" style="color:rgb(255, 0, 0)">
+              Este campo es requerido
+            </small>
+            <small *ngIf="form.get('confirmPassword')?.hasError('injection')" style="color:rgb(255, 0, 0)">
+              Contenido no válido detectado
+            </small>
+          </div>
+          <div *ngIf="!passwordsMatch() && form.get('confirmPassword')?.touched">
             <small style="color:rgb(255, 0, 0)">Las contraseñas no coinciden</small>
           </div>
 
