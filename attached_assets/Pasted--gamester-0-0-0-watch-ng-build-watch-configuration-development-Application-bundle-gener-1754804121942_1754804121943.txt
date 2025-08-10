@@ -1,0 +1,106 @@
+
+> gamester@0.0.0 watch
+> ng build --watch --configuration development
+
+Application bundle generation failed. [9.895 seconds]
+
+✘ [ERROR] TS2440: Import declaration conflicts with local declaration of 'customPasswordValidator'. [plugin angular-compiler]
+
+    src/app/es/esregistro/esregistro.component.ts:6:36:
+      6 │ ...ired, hasemailerror, customPasswordValidator, noInjectionValidat...
+        ╵                         ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] TS2769: No overload matches this call.
+  Overload 1 of 4, '(formState: string | FormControlState<string | null> | null, opts: FormControlOptions & { initialValueIsDefault: true; }): FormControl<string | null>', gave the following error.
+    Argument of type '(((control: AbstractControl<any, any>) => ValidationErrors | null) | ValidationErrors | null)[]' is not assignable to parameter of type 'FormControlOptions & { initialValueIsDefault: true; }'.
+      Property 'initialValueIsDefault' is missing in type '(((control: AbstractControl<any, any>) => ValidationErrors | null) | ValidationErrors | null)[]' but required in type '{ initialValueIsDefault: true; }'.
+  Overload 2 of 4, '(formState: string | FormControlState<string | null> | null, opts: FormControlOptions & { nonNullable: true; }): FormControl<string | null>', gave the following error.
+    Argument of type '(((control: AbstractControl<any, any>) => ValidationErrors | null) | ValidationErrors | null)[]' is not assignable to parameter of type 'FormControlOptions & { nonNullable: true; }'.
+      Property 'nonNullable' is missing in type '(((control: AbstractControl<any, any>) => ValidationErrors | null) | ValidationErrors | null)[]' but required in type '{ nonNullable: true; }'.
+  Overload 3 of 4, '(formState: string | FormControlState<string | null> | null, validatorOrOpts?: FormControlOptions | ValidatorFn | ValidatorFn[] | null | undefined, asyncValidator?: AsyncValidatorFn | ... 2 more ... | undefined): FormControl<...>', gave the following error.
+    Type 'ValidationErrors | null' is not assignable to type 'ValidatorFn'.
+      Type 'null' is not assignable to type 'ValidatorFn'. [plugin angular-compiler]
+
+    src/app/es/esregistro/esregistro.component.ts:84:29:
+      84 │     email: this._formBuilder.control<string | null>(null, [
+         ╵                              ~~~~~~~
+
+  'initialValueIsDefault' is declared here.
+
+    node_modules/@angular/forms/index.d.ts:2029:8:
+      2029 │         initialValueIsDefault: true;
+           ╵         ~~~~~~~~~~~~~~~~~~~~~
+
+  'nonNullable' is declared here.
+
+    node_modules/@angular/forms/index.d.ts:2032:8:
+      2032 │         nonNullable: true;
+           ╵         ~~~~~~~~~~~
+
+
+✘ [ERROR] TS2554: Expected 1 arguments, but got 0. [plugin angular-compiler]
+
+    src/app/es/esregistro/esregistro.component.ts:87:6:
+      87 │       noInjectionValidator() // Agregado validador de inyección p...
+         ╵       ~~~~~~~~~~~~~~~~~~~~
+
+  An argument for 'control' was not provided.
+
+    src/app/auth/validators.ts:14:37:
+      14 │ ...jectionValidator = (control: AbstractControl): ValidationErrors...
+         ╵                        ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] TS2769: No overload matches this call.
+  Overload 1 of 4, '(formState: string | FormControlState<string | null> | null, opts: FormControlOptions & { initialValueIsDefault: true; }): FormControl<string | null>', gave the following error.
+    Argument of type '(((control: AbstractControl<any, any>) => ValidationErrors | null) | ValidationErrors | null)[]' is not assignable to parameter of type 'FormControlOptions & { initialValueIsDefault: true; }'.
+  Overload 2 of 4, '(formState: string | FormControlState<string | null> | null, opts: FormControlOptions & { nonNullable: true; }): FormControl<string | null>', gave the following error.
+    Argument of type '(((control: AbstractControl<any, any>) => ValidationErrors | null) | ValidationErrors | null)[]' is not assignable to parameter of type 'FormControlOptions & { nonNullable: true; }'.
+  Overload 3 of 4, '(formState: string | FormControlState<string | null> | null, validatorOrOpts?: FormControlOptions | ValidatorFn | ValidatorFn[] | null | undefined, asyncValidator?: AsyncValidatorFn | ... 2 more ... | undefined): FormControl<...>', gave the following error.
+    Type 'ValidationErrors | null' is not assignable to type 'ValidatorFn'.
+      Type 'null' is not assignable to type 'ValidatorFn'. [plugin angular-compiler]
+
+    src/app/es/esregistro/esregistro.component.ts:89:32:
+      89 │     password: this._formBuilder.control<string | null>(null, [
+         ╵                                 ~~~~~~~
+
+
+✘ [ERROR] TS2554: Expected 1 arguments, but got 0. [plugin angular-compiler]
+
+    src/app/es/esregistro/esregistro.component.ts:92:6:
+      92 │       noInjectionValidator() // Agregado validador de inyección p...
+         ╵       ~~~~~~~~~~~~~~~~~~~~
+
+  An argument for 'control' was not provided.
+
+    src/app/auth/validators.ts:14:37:
+      14 │ ...jectionValidator = (control: AbstractControl): ValidationErrors...
+         ╵                        ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] TS2769: No overload matches this call.
+  Overload 1 of 4, '(formState: string | FormControlState<string | null> | null, opts: FormControlOptions & { initialValueIsDefault: true; }): FormControl<string | null>', gave the following error.
+    Argument of type '(((control: AbstractControl<any, any>) => ValidationErrors | null) | ValidationErrors | null)[]' is not assignable to parameter of type 'FormControlOptions & { initialValueIsDefault: true; }'.
+  Overload 2 of 4, '(formState: string | FormControlState<string | null> | null, opts: FormControlOptions & { nonNullable: true; }): FormControl<string | null>', gave the following error.
+    Argument of type '(((control: AbstractControl<any, any>) => ValidationErrors | null) | ValidationErrors | null)[]' is not assignable to parameter of type 'FormControlOptions & { nonNullable: true; }'.
+  Overload 3 of 4, '(formState: string | FormControlState<string | null> | null, validatorOrOpts?: FormControlOptions | ValidatorFn | ValidatorFn[] | null | undefined, asyncValidator?: AsyncValidatorFn | ... 2 more ... | undefined): FormControl<...>', gave the following error.
+    Type 'ValidationErrors | null' is not assignable to type 'ValidatorFn'.
+      Type 'null' is not assignable to type 'ValidatorFn'. [plugin angular-compiler]
+
+    src/app/es/esregistro/esregistro.component.ts:94:39:
+      94 │     confirmPassword: this._formBuilder.control<string | null>(null, [
+         ╵                                        ~~~~~~~
+
+
+✘ [ERROR] TS2554: Expected 1 arguments, but got 0. [plugin angular-compiler]
+
+    src/app/es/esregistro/esregistro.component.ts:96:6:
+      96 │       noInjectionValidator() // Agregado validador de inyección p...
+         ╵       ~~~~~~~~~~~~~~~~~~~~
+
+  An argument for 'control' was not provided.
+
+    src/app/auth/validators.ts:14:37:
+      14 │ ...jectionValidator = (control: AbstractControl): ValidationErrors...
+         ╵                        ~~~~~~~~~~~~~~~~~~~~~~~~
