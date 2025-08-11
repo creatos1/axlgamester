@@ -15,6 +15,9 @@ import {
 } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 
+import { ModMaestroService } from '../../services/mod-maestro.service';
+import { ModMaestro, ModDetalle, ModCompleto } from '../../models/mod.model';
+
 interface User {
   id?: string;
   email: string;
@@ -30,10 +33,32 @@ interface User {
 export class AdminComponent implements OnInit, OnDestroy {
   isAdmin: boolean = false;
 
-  activeTab: 'images' | 'users' = 'images';
+  activeTab: 'images' | 'users' | 'mods' = 'images';
 
   users: User[] = [];
   newUser: Partial<User> = { email: '', role: 'user' };
+
+  // Propiedades para mods
+  modsMaestro: ModMaestro[] = [];
+  newModMaestro: Partial<ModMaestro> = {
+    nombre: '',
+    imagen: '',
+    descripcion: '',
+    juego: 'gow1',
+    link: '',
+    activo: true
+  };
+
+  modDetalles: ModDetalle[] = [];
+  selectedModMaestroId: string | null = null;
+  newModDetalle: Partial<ModDetalle> = {
+    version: '',
+    changelog: '',
+    archivos: [],
+    tamano: '',
+    requisitos: '',
+    activo: true
+  };
 
   private userSubscription?: Subscription;
   private currentUserEmail: string | null = null;
@@ -41,7 +66,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private firestore: Firestore
+    private firestore: Firestore,
+    private modMaestroService: ModMaestroService
   ) {}
 
   ngOnInit() {
@@ -61,6 +87,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       } else {
         this.isAdmin = true;
         await this.loadUsers();
+        await this.loadModsMaestro();
       }
     });
   }
@@ -135,6 +162,140 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.loadUsers();
     } catch (error) {
       console.error('Error eliminando usuario:', error);
+    }
+  }
+
+  // Métodos para gestión de mods maestro
+  async loadModsMaestro() {
+    try {
+      this.modsMaestro = await this.modMaestroService.obtenerModsMaestro();
+    } catch (error) {
+      console.error('Error cargando mods maestro:', error);
+    }
+  }
+
+  async addModMaestro() {
+    if (!this.newModMaestro.nombre || !this.newModMaestro.imagen) return;
+
+    try {
+      const modData = {
+        ...this.newModMaestro,
+        fechaCreacion: new Date(),
+        activo: true
+      } as Omit<ModMaestro, 'id'>;
+
+      await this.modMaestroService.crearModMaestro(modData);
+      this.newModMaestro = {
+        nombre: '',
+        imagen: '',
+        descripcion: '',
+        juego: 'gow1',
+        link: '',
+        activo: true
+      };
+      this.loadModsMaestro();
+    } catch (error) {
+      console.error('Error agregando mod maestro:', error);
+    }
+  }
+
+  async updateModMaestro(mod: ModMaestro) {
+    if (!mod.id) return;
+
+    try {
+      await this.modMaestroService.actualizarModMaestro(mod.id, mod);
+      this.loadModsMaestro();
+    } catch (error) {
+      console.error('Error actualizando mod maestro:', error);
+    }
+  }
+
+  async deleteModMaestro(modId: string | undefined) {
+    if (!modId) return;
+
+    try {
+      await this.modMaestroService.eliminarModMaestro(modId);
+      this.loadModsMaestro();
+      if (this.selectedModMaestroId === modId) {
+        this.selectedModMaestroId = null;
+        this.modDetalles = [];
+      }
+    } catch (error) {
+      console.error('Error eliminando mod maestro:', error);
+    }
+  }
+
+  // Métodos para gestión de detalles
+  async loadModDetalles(modMaestroId: string) {
+    this.selectedModMaestroId = modMaestroId;
+    try {
+      this.modDetalles = await this.modMaestroService.obtenerDetallesPorMaestro(modMaestroId);
+    } catch (error) {
+      console.error('Error cargando detalles del mod:', error);
+    }
+  }
+
+  async addModDetalle() {
+    if (!this.selectedModMaestroId || !this.newModDetalle.version) return;
+
+    try {
+      const detalleData = {
+        ...this.newModDetalle,
+        modMaestroId: this.selectedModMaestroId,
+        fechaLanzamiento: new Date(),
+        activo: true
+      } as Omit<ModDetalle, 'id'>;
+
+      await this.modMaestroService.crearModDetalle(detalleData);
+      this.newModDetalle = {
+        version: '',
+        changelog: '',
+        archivos: [],
+        tamano: '',
+        requisitos: '',
+        activo: true
+      };
+      this.loadModDetalles(this.selectedModMaestroId);
+    } catch (error) {
+      console.error('Error agregando detalle del mod:', error);
+    }
+  }
+
+  async updateModDetalle(detalle: ModDetalle) {
+    if (!detalle.id) return;
+
+    try {
+      await this.modMaestroService.actualizarModDetalle(detalle.id, detalle);
+      if (this.selectedModMaestroId) {
+        this.loadModDetalles(this.selectedModMaestroId);
+      }
+    } catch (error) {
+      console.error('Error actualizando detalle del mod:', error);
+    }
+  }
+
+  async deleteModDetalle(detalleId: string | undefined) {
+    if (!detalleId) return;
+
+    try {
+      await this.modMaestroService.eliminarModDetalle(detalleId);
+      if (this.selectedModMaestroId) {
+        this.loadModDetalles(this.selectedModMaestroId);
+      }
+    } catch (error) {
+      console.error('Error eliminando detalle del mod:', error);
+    }
+  }
+
+  // Método para manejar archivos como string separado por comas
+  updateArchivos(event: any, detalle?: ModDetalle) {
+    const archivosStr = event.target.value;
+    const archivosArray = archivosStr.split(',').map((archivo: string) => archivo.trim()).filter((archivo: string) => archivo);
+    
+    if (detalle) {
+      detalle.archivos = archivosArray;
+    } else {
+      this.newModDetalle.archivos = archivosArray;
     }
   }
 }

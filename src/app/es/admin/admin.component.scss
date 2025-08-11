@@ -82,7 +82,7 @@ h2 {
   background: #218838;
 }
 
-/* Tabla de usuarios (reusa estilos previos) */
+/*Tabla de usuarios (reusa estilos previos) */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -146,5 +146,247 @@ table button:last-child:hover {
 
   .tab-content {
     border-radius: 5px;
+  }
+}
+
+/* Estilos para catálogo de mods */
+.mods-container {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
+  }
+}
+
+.maestro-panel, .detalle-panel {
+  flex: 1;
+  min-width: 400px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  h3 {
+    color: #28a745;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  h4 {
+    color: #ffffff;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 5px;
+  }
+}
+
+.form-section {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+
+  label {
+    display: block;
+    color: #ffffff;
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+
+  .form-input {
+    flex: 1;
+  }
+}
+
+.form-input, .form-textarea, .form-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 14px;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #28a745;
+    box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+  }
+}
+
+.form-textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.mods-list, .detalles-list {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.mod-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.mod-info {
+  display: flex;
+  gap: 15px;
+  flex: 1;
+  align-items: center;
+}
+
+.mod-thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mod-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mod-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.inline-edit, .inline-edit-textarea, .inline-select {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 6px;
+  color: #ffffff;
+  font-size: 12px;
+
+  &:focus {
+    border-color: #28a745;
+    outline: none;
+  }
+}
+
+.inline-edit-textarea {
+  resize: vertical;
+  min-height: 40px;
+}
+
+.detalle-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.detalle-header {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.version-badge {
+  background: #28a745;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.size-info, .date-info {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+}
+
+.detalle-content {
+  margin-bottom: 15px;
+}
+
+.detalle-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.btn-primary, .btn-update, .btn-info, .btn-delete {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-primary {
+  background: #28a745;
+  color: white;
+
+  &:hover {
+    background: #218838;
+    transform: translateY(-1px);
+  }
+}
+
+.btn-update {
+  background: #ffc107;
+  color: #212529;
+
+  &:hover {
+    background: #e0a800;
+    transform: translateY(-1px);
+  }
+}
+
+.btn-info {
+  background: #17a2b8;
+  color: white;
+
+  &:hover {
+    background: #138496;
+    transform: translateY(-1px);
+  }
+}
+
+.btn-delete {
+  background: #dc3545;
+  color: white;
+
+  &:hover {
+    background: #c82333;
+    transform: translateY(-1px);
   }
 }

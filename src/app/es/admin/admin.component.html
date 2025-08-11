@@ -2,10 +2,20 @@
 <p>Bienvenido al panel de administración.</p>
 
 <!-- ✅ NAV TABS -->
-<div class="admin-tabs">
-  <button [class.active]="activeTab === 'images'" (click)="activeTab = 'images'">Subir Imágenes</button>
-  <button [class.active]="activeTab === 'users'" (click)="activeTab = 'users'">Gestionar Usuarios</button>
-</div>
+<nav class="admin-nav">
+  <button
+    [class.active]="activeTab === 'images'"
+    (click)="activeTab = 'images'"
+  >
+    Gestión de Imágenes
+  </button>
+  <button [class.active]="activeTab === 'users'" (click)="activeTab = 'users'">
+    Gestión de Usuarios
+  </button>
+  <button [class.active]="activeTab === 'mods'" (click)="activeTab = 'mods'">
+    Catálogo de Mods
+  </button>
+</nav>
 
 <!-- ✅ CONTENIDO DE IMÁGENES -->
 <div *ngIf="activeTab === 'images'" class="tab-content">
@@ -19,7 +29,7 @@
 
   <!-- Agregar usuario -->
   <div class="add-user-form">
-    <input [(ngModel)]="newUser.email" placeholder="Correo">
+    <input [(ngModel)]="newUser.email" placeholder="Correo" />
     <select [(ngModel)]="newUser.role">
       <option value="user">User</option>
       <option value="admin">Admin</option>
@@ -38,7 +48,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let user of users">
-        <td><input [(ngModel)]="user.email"></td>
+        <td><input [(ngModel)]="user.email" /></td>
         <td>
           <select [(ngModel)]="user.role">
             <option value="user">User</option>
@@ -52,4 +62,212 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<!-- Sección de Catálogo de Mods -->
+<div *ngIf="activeTab === 'mods'" class="admin-section">
+  <div class="mods-container">
+    <!-- Panel de Mods Maestro -->
+    <div class="maestro-panel">
+      <h3><i class="fas fa-gamepad"></i> Mods Principales</h3>
+
+      <!-- Formulario para nuevo mod maestro -->
+      <div class="form-section">
+        <h4>Agregar Nuevo Mod</h4>
+        <div class="form-group">
+          <input
+            type="text"
+            [(ngModel)]="newModMaestro.nombre"
+            placeholder="Nombre del mod"
+            class="form-input"
+          />
+        </div>
+
+        <div class="form-group">
+          <input
+            type="url"
+            [(ngModel)]="newModMaestro.imagen"
+            placeholder="URL de la imagen"
+            class="form-input"
+          />
+        </div>
+
+        <div class="form-group">
+          <textarea
+            [(ngModel)]="newModMaestro.descripcion"
+            placeholder="Descripción del mod"
+            class="form-textarea"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <select [(ngModel)]="newModMaestro.juego" class="form-select">
+            <option value="gow1">God of War I</option>
+            <option value="gow2">God of War II</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <input
+            type="url"
+            [(ngModel)]="newModMaestro.link"
+            placeholder="Link de descarga (opcional)"
+            class="form-input"
+          />
+        </div>
+
+        <button (click)="addModMaestro()" class="btn-primary">
+          <i class="fas fa-plus"></i> Agregar Mod
+        </button>
+      </div>
+
+      <!-- Lista de mods maestro -->
+      <div class="mods-list">
+        <div *ngFor="let mod of modsMaestro" class="mod-item">
+          <div class="mod-info">
+            <img [src]="mod.imagen" [alt]="mod.nombre" class="mod-thumbnail" />
+            <div class="mod-details">
+              <input [(ngModel)]="mod.nombre" class="inline-edit" />
+              <textarea
+                [(ngModel)]="mod.descripcion"
+                class="inline-edit-textarea"
+              ></textarea>
+              <select [(ngModel)]="mod.juego" class="inline-select">
+                <option value="gow1">God of War I</option>
+                <option value="gow2">God of War II</option>
+              </select>
+              <input
+                [(ngModel)]="mod.imagen"
+                placeholder="URL imagen"
+                class="inline-edit"
+              />
+              <input
+                [(ngModel)]="mod.link"
+                placeholder="Link descarga"
+                class="inline-edit"
+              />
+            </div>
+          </div>
+
+          <div class="mod-actions">
+            <button (click)="updateModMaestro(mod)" class="btn-update">
+              <i class="fas fa-save"></i>
+            </button>
+            <button (click)="loadModDetalles(mod.id!)" class="btn-info">
+              <i class="fas fa-list"></i> Detalles
+            </button>
+            <button (click)="deleteModMaestro(mod.id)" class="btn-delete">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel de Detalles del Mod -->
+    <div class="detalle-panel" *ngIf="selectedModMaestroId">
+      <h3><i class="fas fa-cogs"></i> Detalles del Mod</h3>
+
+      <!-- Formulario para nuevo detalle -->
+      <div class="form-section">
+        <h4>Agregar Nueva Versión</h4>
+        <div class="form-row">
+          <input
+            type="text"
+            [(ngModel)]="newModDetalle.version"
+            placeholder="Versión (ej: 1.0.0)"
+            class="form-input"
+          />
+          <input
+            type="text"
+            [(ngModel)]="newModDetalle.tamano"
+            placeholder="Tamaño (ej: 150MB)"
+            class="form-input"
+          />
+        </div>
+
+        <textarea
+          [(ngModel)]="newModDetalle.changelog"
+          placeholder="Changelog / Cambios en esta versión"
+          class="form-textarea"
+        ></textarea>
+
+        <input
+          type="text"
+          placeholder="Archivos (separados por comas)"
+          (input)="updateArchivos($event)"
+          class="form-input"
+        />
+
+        <textarea
+          [(ngModel)]="newModDetalle.requisitos"
+          placeholder="Requisitos del sistema"
+          class="form-textarea"
+        ></textarea>
+
+        <button (click)="addModDetalle()" class="btn-primary">
+          <i class="fas fa-plus"></i> Agregar Versión
+        </button>
+      </div>
+
+      <!-- Lista de detalles -->
+      <div class="detalles-list">
+        <div *ngFor="let detalle of modDetalles" class="detalle-item">
+          <div class="detalle-header">
+            <span class="version-badge">v{{ detalle.version }}</span>
+            <span class="size-info">{{ detalle.tamano }}</span>
+            <span class="date-info">{{
+              detalle.fechaLanzamiento | date: "dd/MM/yyyy"
+            }}</span>
+          </div>
+
+          <div class="detalle-content">
+            <div class="form-group">
+              <label>Versión:</label>
+              <input [(ngModel)]="detalle.version" class="inline-edit" />
+            </div>
+
+            <div class="form-group">
+              <label>Tamaño:</label>
+              <input [(ngModel)]="detalle.tamano" class="inline-edit" />
+            </div>
+
+            <div class="form-group">
+              <label>Changelog:</label>
+              <textarea
+                [(ngModel)]="detalle.changelog"
+                class="inline-edit-textarea"
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Archivos:</label>
+              <input
+                [value]="detalle.archivos ? detalle.archivos.join(', ') : ''"
+                (input)="updateArchivos($event, detalle)"
+                class="inline-edit"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Requisitos:</label>
+              <textarea
+                [(ngModel)]="detalle.requisitos"
+                class="inline-edit-textarea"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="detalle-actions">
+            <button (click)="updateModDetalle(detalle)" class="btn-update">
+              <i class="fas fa-save"></i>
+            </button>
+            <button (click)="deleteModDetalle(detalle.id)" class="btn-delete">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

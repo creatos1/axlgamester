@@ -9,6 +9,7 @@ import { SecurityInterceptor } from '../auth/security.interceptor';
 import { SafeInputDirective } from '../auth/safe-input.directive';
 import { SafeUrlPipe } from './safe-url.pipe';
 
+import { EssesionComponent } from './essesion/essesion.component';
 import { EsComponent } from './es.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -16,8 +17,9 @@ import { ModsesComponent } from './modses/modses.component';
 import { GaleriaesComponent } from './galeriaes/galeriaes.component';
 import { DonacionesComponent } from './donaciones/donaciones.component';
 import { AcercaesComponent } from './acercaes/acercaes.component';
-import { EssesionComponent } from './essesion/essesion.component';
-import { CardListComponent } from '../shared/card-list-component/card-list-component.component'; // Importa tu componente
+
+import { CardListComponent } from '../shared/card-list-component/card-list-component.component'; // Componente standalone
+
 import { AdminComponent } from './admin/admin.component';
 import { FooterComponent } from './footer/footer.component';
 import { EsregistroComponent } from './esregistro/esregistro.component';
@@ -33,7 +35,6 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
     GaleriaesComponent,
     DonacionesComponent,
     AcercaesComponent,
-    CardListComponent,
     AdminComponent,
     FooterComponent,
     EsregistroComponent,
@@ -50,11 +51,18 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
     HttpClientModule,
     BrowserAnimationsModule,
     SharedModule,
+    CardListComponent, // ✅ Importa aquí el componente standalone (NO en declarations)
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: SecurityInterceptor, multi: true }
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA] ,// Agrega esto para permitir Web Components,
-  exports: [NavbarComponent, CardListComponent,FooterComponent,EsregistroComponent,EssesionComponent] // Exporta el componente si es necesario
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  exports: [
+    NavbarComponent,
+    FooterComponent,
+    EsregistroComponent,
+    EssesionComponent
+    // NO exportes CardListComponent aquí, porque es standalone y debe importarse donde se use
+  ]
 })
 export class EsModule {}
