@@ -25,7 +25,7 @@
   </div>
 
   <div *ngIf="!loading && allItems.length > 0" class="mods-grid">
-    <div *ngFor="let item of allItems" class="mod-card card">
+    <div *ngFor="let item of allItems; trackBy: trackByItemId" class="mod-card card">
       <div 
         class="item-type-badge"
         [ngClass]="{'mod-badge': item.type === 'mod', 'card-badge': item.type === 'card'}">
@@ -35,14 +35,15 @@
       <img 
         class="card-img-top"
         [src]="item.img || '../../../assets/img/ico.webp'" 
-        [alt]="item.title || 'mod image'" 
+        [alt]="item.title || 'mod image'"
+        loading="lazy"
+        decoding="async"
       />
 
       <div class="card-body">
         <h5 class="card-title">{{item.title || 'Sin nombre'}}</h5>
         <p class="card-description">{{item.description || 'Sin descripción'}}</p>
         <div class="card-actions">
-          <!-- Botón descargar abre modal donación -->
           <button (click)="openDonateModal(item)" class="btn btn-download">
             <i class="fas fa-download"></i> Descargar
           </button>
@@ -63,7 +64,9 @@
     <img 
       class="modal-img"
       [src]="selectedMod.img || '../../../assets/img/ico.webp'" 
-      [alt]="selectedMod.title || 'mod image'" 
+      [alt]="selectedMod.title || 'mod image'"
+      loading="lazy"
+      decoding="async"
     />
     <p>{{selectedMod.description || 'Sin descripción'}}</p>
 

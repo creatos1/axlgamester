@@ -31,16 +31,30 @@
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.css"
             ],
-            "scripts": [
-              "./node_modules/jquery/dist/jquery.min.js",
-              "./node_modules/popper.js/dist/umd/popper.min.js",
-              "node_modules/slick-carousel/slick/slick.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
-              "budgets": [],
-              "outputHashing": "all"
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ],
+              "outputHashing": "all",
+              "optimization": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "aot": true
             },
             "development": {
               "optimization": false,

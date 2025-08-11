@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, AfterViewInit } from '@angular/core';
+import { Component, inject, OnInit, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from '../auth/user.service';
@@ -11,7 +11,8 @@ declare var particlesJS: any;
 @Component({
   selector: 'app-es',
   templateUrl: './es.component.html',
-  styleUrls: ['./es.component.scss']
+  styleUrls: ['./es.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class EsComponent implements OnInit {
@@ -53,7 +54,7 @@ export class EsComponent implements OnInit {
 
   }
 
-  
+
   cargarTarjetas() {
     this.cards$ = this.cardService.getCards();
   }

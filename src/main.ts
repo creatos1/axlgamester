@@ -12,5 +12,12 @@ import { dev } from '../src/app/environment/environment';
 import { inject } from '@vercel/analytics';
  
 inject({ mode: dev ? 'development' : 'production' });
+
+// Register service worker for caching
+if ('serviceWorker' in navigator && !dev) {
+  navigator.serviceWorker.register('/service-worker.js')
+    .then(registration => console.log('SW registered'))
+    .catch(error => console.log('SW registration failed'));
+}
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));

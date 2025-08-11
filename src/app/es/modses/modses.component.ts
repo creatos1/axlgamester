@@ -38,16 +38,17 @@ export class ModsesComponent implements OnInit {
     try {
       this.loading = true;
 
-      await this.modMaestroService.diagnosticarColecciones();
+      // Cargar mods y cards en paralelo para mejor rendimiento
+      const [modsCompletos, cardsObservable] = await Promise.all([
+        this.modMaestroService.obtenerModsCompletos(),
+        this.cardService.getCards().toPromise()
+      ]);
 
-      this.mods = await this.modMaestroService.obtenerModsCompletos();
-      this.mods = this.mods.filter(mod => mod.activo);
-
-      this.cardService.getCards().subscribe(cards => {
-        this.cards = cards;
-        this.combineAllItems();
-        this.loading = false;
-      });
+      this.mods = modsCompletos.filter(mod => mod.activo);
+      this.cards = cardsObservable || [];
+      
+      this.combineAllItems();
+      this.loading = false;
     } catch (error) {
       console.error('Error cargando mods:', error);
       this.loading = false;
@@ -186,5 +187,10 @@ download() {
         alert('Error durante la limpieza');
       }
     }
+  }
+
+  // TrackBy function para optimizar el renderizado de la lista
+  trackByItemId(index: number, item: any): any {
+    return item.id || index;
   }
 }
