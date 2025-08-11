@@ -3,7 +3,6 @@ import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from '../auth/user.service';
 import { CardService } from '../services/card.service';
-import { YoutubeService } from '../services/youtube.service';
 import { Observable } from 'rxjs';
 
 declare var particlesJS: any;
@@ -32,7 +31,6 @@ export class EsComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private router: Router,
     private cardService: CardService,
-    private youtubeService: YoutubeService
   ) {}
 
   ngOnInit(): void {
@@ -50,44 +48,11 @@ export class EsComponent implements OnInit, AfterViewInit {
     }
 
     // Cargar videos de YouTube con reintentos automáticos más agresivos
-    this.loadYouTubeVideos();
-    
-    // Primer reintento después de 2 segundos
-    setTimeout(() => {
-      if (this.videos.length === 0) {
-        console.log('🔄 Primer reintento automático...');
-        this.forceReloadVideos();
-      }
-    }, 2000);
-    
-    // Segundo reintento después de 5 segundos
-    setTimeout(() => {
-      if (this.videos.length === 0) {
-        console.log('🔄 Segundo reintento automático...');
-        this.forceReloadVideos();
-      }
-    }, 5000);
-    
-    // Tercer reintento después de 10 segundos
-    setTimeout(() => {
-      if (this.videos.length === 0) {
-        console.log('🔄 Tercer reintento automático...');
-        this.forceReloadVideos();
-      }
-    }, 10000);
+
 
   }
 
-  ngAfterViewInit(): void {
-    // Intentar cargar videos después de que la vista esté completamente inicializada
-    setTimeout(() => {
-      if (this.videos.length === 0) {
-        console.log('🎯 Carga desde ngAfterViewInit...');
-        this.forceReloadVideos();
-      }
-    }, 1000);
-  }
-
+  
   cargarTarjetas() {
     this.cards$ = this.cardService.getCards();
   }
@@ -279,115 +244,6 @@ export class EsComponent implements OnInit, AfterViewInit {
     }
 
     return array;
-  }
-
-  loadYouTubeVideos() {
-    console.log('🚀 Iniciando carga de videos de YouTube...');
-    
-    this.youtubeService.getChannelVideos().subscribe({
-      next: (videos) => {
-        console.log('✅ Videos recibidos en el componente:', videos);
-        console.log('📊 Número de videos:', videos ? videos.length : 0);
-        
-        // Validar que videos sea un array y no esté vacío
-        if (videos && Array.isArray(videos) && videos.length > 0) {
-          this.videos = videos;
-          console.log('🎉 Videos cargados exitosamente');
-          videos.forEach((video, index) => {
-            console.log(`Video ${index + 1}:`, video.snippet?.title);
-          });
-        } else {
-          console.warn('⚠️ No se cargaron videos - Array vacío o inválido');
-          console.log('🔄 Intentando carga directa como fallback...');
-          this.loadYouTubeVideosDirect();
-        }
-      },
-      error: (error) => {
-        console.error('❌ Error completo en el componente:', error);
-        console.log('🔄 Intentando carga directa como fallback...');
-        this.loadYouTubeVideosDirect();
-      }
-    });
-  }
-
-  loadYouTubeVideosDirect() {
-    console.log('🔄 Reintentando carga de videos...');
-    
-    // Reintentar la llamada al servicio después de un pequeño delay
-    setTimeout(() => {
-      this.youtubeService.getChannelVideos().subscribe({
-        next: (videos) => {
-          console.log('🔄 Segundo intento - Videos recibidos:', videos);
-          if (videos && videos.length > 0) {
-            this.videos = videos;
-            console.log('✅ Videos cargados en segundo intento');
-          } else {
-            console.warn('⚠️ Segundo intento fallido, reintentando una vez más...');
-            this.retryAfterDelay();
-          }
-        },
-        error: (error) => {
-          console.error('❌ Error en segundo intento:', error);
-          this.retryAfterDelay();
-        }
-      });
-    }, 2000); // Espera 2 segundos antes del segundo intento
-  }
-
-  private retryAfterDelay() {
-    console.log('🔄 Iniciando tercer intento en 3 segundos...');
-    setTimeout(() => {
-      this.youtubeService.getChannelVideos().subscribe({
-        next: (videos) => {
-          console.log('🔄 Tercer intento - Videos recibidos:', videos);
-          if (videos && videos.length > 0) {
-            this.videos = videos;
-            console.log('✅ Videos cargados en tercer intento');
-          } else {
-            console.error('❌ Todos los intentos fallaron');
-            this.videos = []; // Asegurar que el array esté vacío
-          }
-        },
-        error: (error) => {
-          console.error('❌ Error en tercer intento:', error);
-          this.videos = []; // Asegurar que el array esté vacío
-        }
-      });
-    }, 3000);
-  }
-
-  forceReloadVideos() {
-    console.log('🔄 Forzando recarga de videos...');
-    this.videos = []; // Limpiar array actual
-    
-    // Llamar inmediatamente sin delay
-    this.youtubeService.getChannelVideos().subscribe({
-      next: (videos) => {
-        console.log('✅ Videos recibidos en recarga forzada:', videos);
-        console.log('📊 Número de videos:', videos ? videos.length : 0);
-        
-        if (videos && Array.isArray(videos) && videos.length > 0) {
-          this.videos = videos;
-          console.log('🎉 Videos cargados exitosamente en recarga forzada');
-          videos.forEach((video, index) => {
-            console.log(`Video ${index + 1}:`, video.snippet?.title);
-          });
-        } else {
-          console.warn('⚠️ Recarga forzada falló, reintentando...');
-          // Si falla, intentar una vez más después de un delay
-          setTimeout(() => {
-            this.loadYouTubeVideos();
-          }, 1000);
-        }
-      },
-      error: (error) => {
-        console.error('❌ Error en recarga forzada:', error);
-        // Si hay error, intentar una vez más después de un delay
-        setTimeout(() => {
-          this.loadYouTubeVideos();
-        }, 1000);
-      }
-    });
   }
 
   // TrackBy function for better performance

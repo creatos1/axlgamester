@@ -23,8 +23,10 @@ export class AppComponent implements OnInit {
   }
 
   private isProduction(): boolean {
-    return window.location.hostname !== 'localhost' &&
-           window.location.hostname !== '127.0.0.1' &&
-           !window.location.hostname.includes('replit');
+    const hostname = window.location.hostname;
+    return !hostname.includes('localhost') &&
+           !hostname.includes('127.0.0.1') &&
+           !hostname.includes('replit.dev') &&
+           (hostname.includes('vercel.app') || hostname.includes('axlgamester.com'));
   }
 }

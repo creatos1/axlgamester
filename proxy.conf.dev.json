@@ -12,6 +12,7 @@
       "Accept": "application/json",
       "User-Agent": "Angular-App/1.0",
       "Referer": "http://localhost:4200"
-    }
+    },
+    "onProxyReq": "function(proxyReq, req, res) { console.log('🔧 Proxy interceptando:', req.url); const url = new URL(req.url, 'http://localhost:4200'); url.searchParams.set('key', 'AIzaSyADneGosKDYJYeRXQTc8yV_ZDsGAXARgCo'); proxyReq.path = url.pathname + url.search; console.log('🚀 Enviando a Google:', proxyReq.path); }"
   }
 }
