@@ -50,7 +50,10 @@
               "outputHashing": "all",
               "optimization": {
                 "scripts": true,
-                "styles": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
                 "fonts": true
               },
               "sourceMap": false,
@@ -60,7 +63,8 @@
               "buildOptimizer": true,
               "aot": true,
               "commonChunk": false,
-              "subresourceIntegrity": true
+              "subresourceIntegrity": true,
+              "crossOrigin": "anonymous"
             },
             "development": {
               "optimization": false,
