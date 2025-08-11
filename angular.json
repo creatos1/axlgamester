@@ -52,7 +52,7 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
+
               "buildOptimizer": true,
               "aot": true
             },
