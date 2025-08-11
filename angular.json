@@ -59,7 +59,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "aot": true,
               "subresourceIntegrity": true,
               "crossOrigin": "anonymous"
             },
@@ -74,6 +73,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
+            "host": "0.0.0.0",
+            "port": 5000,
             "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
