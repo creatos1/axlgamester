@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
+import { UserService } from '../../auth/user.service';
 import {
   Firestore,
   collection,
@@ -16,7 +17,8 @@ import {
 import { Subscription } from 'rxjs';
 
 import { ModMaestroService } from '../../services/mod-maestro.service';
-import { ModMaestro, ModDetalle, ModCompleto } from '../../models/mod.model';
+import { MigrationService } from '../../services/migration.service';
+import { ModMaestro, ModDetalle } from '../../models/mod.model';
 
 interface User {
   id?: string;
@@ -64,10 +66,12 @@ export class AdminComponent implements OnInit, OnDestroy {
   private currentUserEmail: string | null = null;
 
   constructor(
-    private router: Router,
     private authService: AuthService,
+    private userService: UserService,
+    private router: Router,
     private firestore: Firestore,
-    private modMaestroService: ModMaestroService
+    private modMaestroService: ModMaestroService,
+    private migrationService: MigrationService
   ) {}
 
   ngOnInit() {
@@ -291,11 +295,45 @@ export class AdminComponent implements OnInit, OnDestroy {
   updateArchivos(event: any, detalle?: ModDetalle) {
     const archivosStr = event.target.value;
     const archivosArray = archivosStr.split(',').map((archivo: string) => archivo.trim()).filter((archivo: string) => archivo);
-    
+
     if (detalle) {
       detalle.archivos = archivosArray;
     } else {
       this.newModDetalle.archivos = archivosArray;
     }
+  }
+
+  async verificarCards() {
+    try {
+      await this.migrationService.verificarDatosCards();
+      alert('Verificación completada. Revisa la consola para ver los datos.');
+    } catch (error) {
+      console.error('Error en la verificación:', error);
+      alert('Error durante la verificación');
+    }
+  }
+
+  async migrarCards() {
+    if (confirm('¿Estás seguro de que quieres migrar los datos de cards a mods maestro? Esta acción no se puede deshacer.')) {
+      try {
+        await this.migrationService.migrarCardsAModsMaestro();
+        alert('Migración completada exitosamente');
+        this.loadModsMaestro();
+      } catch (error) {
+        console.error('Error en la migración:', error);
+        alert('Error durante la migración');
+      }
+    }
+  }
+
+  logout() {
+    this.authService.logout()
+      .then(() => {
+        this.userService.clearUser();
+        this.router.navigate(['/home']);
+      })
+      .catch(error => {
+        console.error('Error al cerrar sesión:', error);
+      });
   }
 }

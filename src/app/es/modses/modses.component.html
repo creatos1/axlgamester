@@ -1,10 +1,123 @@
 <section class="mods-container">
-    <app-nav></app-nav>
+  <app-nav></app-nav>
 
-    <div class="mods">
-        God of War MODS
+  <div class="mods">God of War MODS</div>
+  <img class="background-gif" src="../../../assets/img/z2.gif" alt="Background" />
+
+  <div *ngIf="loading" class="loading-container" style="color: white; text-align:center; margin-top: 50px;">
+    <p>Cargando mods...</p>
+  </div>
+
+  <div *ngIf="!loading && allItems.length === 0" class="no-mods">
+    <p>No hay mods disponibles</p>
+    <p>Esto puede significar que:</p>
+    <ul>
+      <li>No se han migrado los datos de 'cards' a 'modsMaestro'</li>
+      <li>Los mods están marcados como inactivos</li>
+      <li>Hay un problema de conexión con Firestore</li>
+    </ul>
+    <button (click)="migrarDatos()" class="btn btn-warning">🔄 Fusionar datos desde cards</button>
+    <button (click)="limpiarDatosPrueba()" class="btn btn-info" style="margin-left: 10px;">🧹 Revisar datos de prueba</button>
+  </div>
+
+  <div *ngIf="!loading && allItems.length > 0" class="stats-info">
+    <!-- Estadísticas si quieres -->
+  </div>
+
+  <div *ngIf="!loading && allItems.length > 0" class="mods-grid">
+    <div *ngFor="let item of allItems" class="mod-card card">
+      <div 
+        class="item-type-badge"
+        [ngClass]="{'mod-badge': item.type === 'mod', 'card-badge': item.type === 'card'}">
+        {{item.type === 'mod' ? 'MOD' : 'CARD'}}
+      </div>
+
+      <img 
+        class="card-img-top"
+        [src]="item.img || '../../../assets/img/ico.webp'" 
+        [alt]="item.title || 'mod image'" 
+      />
+
+      <div class="card-body">
+        <h5 class="card-title">{{item.title || 'Sin nombre'}}</h5>
+        <p class="card-description">{{item.description || 'Sin descripción'}}</p>
+        <div class="card-actions">
+          <!-- Botón descargar abre modal donación -->
+          <button (click)="openDonateModal(item)" class="btn btn-download">
+            <i class="fas fa-download"></i> Descargar
+          </button>
+          <button (click)="showItemDetails(item)" class="btn btn-info">
+            <i class="fas fa-info-circle"></i> Detalles
+          </button>
+        </div>
+      </div>
     </div>
-    <img class="background-gif" src="../../../assets/img/z2.gif" alt="Background">
-    <app-card-list></app-card-list>
-    <app-footer></app-footer>
+  </div>
+
+  <!-- Modal detalles -->
+  <<!-- Modal detalles -->
+<div class="modal" *ngIf="selectedMod" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>{{selectedMod.title || 'Sin nombre'}}</h2>
+    <img 
+      class="modal-img"
+      [src]="selectedMod.img || '../../../assets/img/ico.webp'" 
+      [alt]="selectedMod.title || 'mod image'" 
+    />
+    <p>{{selectedMod.description || 'Sin descripción'}}</p>
+
+    <div *ngIf="selectedMod.detalles?.length > 0">
+      <h3>Versiones disponibles:</h3>
+      <div *ngFor="let detalle of selectedMod.detalles" class="detalle-item">
+        <h4>Versión {{detalle.version}}</h4>
+        <p>{{detalle.changelog}}</p>
+        <small>Fecha: {{convertTimestampToDate(detalle.fechaLanzamiento) | date:'dd/MM/yyyy'}}</small>
+      </div>
+    </div>
+
+    <!-- Video YouTube arriba del botón descargar -->
+    <div class="video-container" style="margin: 20px 0; text-align:center;">
+      <iframe width="100%" height="250" 
+        src="https://www.youtube.com/embed/nSwYCT1EnYM" 
+        title="Tutorial de instalación"
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="modal-actions" style="text-align:center; margin-top: 20px;">
+      <button
+        *ngIf="selectedMod.link"
+        (click)="openDonateModal(selectedMod)"
+        class="btn btn-primary btn-download"
+      >
+        <i class="fas fa-download"></i> Descargar
+      </button>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Modal DONACION -->
+  <div class="modal" *ngIf="showDonateModal" (click)="closeDonateModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()" style="max-width: 400px; text-align:center;">
+      <span class="close" (click)="closeDonateModal()">&times;</span>
+      <h2 class="donate-title">¿Quieres hacer una pequeña donación?</h2>
+      <div style="margin: 20px 0;">
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Paypal_2014_logo.png" 
+          alt="PayPal" 
+          class="paypal-icon" 
+        />
+      </div>
+      <div style="display: flex; justify-content: center; gap: 20px;">
+        <button class="btn btn-donate-yes" (click)="donate()">Sí</button>
+        <button class="btn btn-donate-no" (click)="download()">No</button>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
 </section>

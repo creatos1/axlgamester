@@ -77,7 +77,7 @@
 
 .btn-logout:hover {
   background-color: #ff1f3f;
-  
+
 }
 
 /* Estilos para tamaños de pantalla más pequeños */
@@ -133,15 +133,429 @@ footer {
   text-decoration: none;
   font-size: 24px;
   margin: 0 10px;
-  transition: transform 0.3s ease, filter 0.3s ease; // Add filter transition
+  transition: transform 0.3s ease, filter 0.3s ease; /* Add filter transition */
 
   &:hover {
     color: rgb(255, 255, 255);
     filter: brightness(150%);
     transform: scale(1.9);
-    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.863); // Add shadow
+    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.863); /* Add shadow */
   }
 
-  cursor: pointer; // Change cursor on hover
+  cursor: pointer; /* Change cursor on hover */
 }
 
+.mods-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  position: relative;
+}
+
+.no-mods {
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  margin: 50px 0;
+}
+
+.debug-info {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 5px;
+  border-radius: 3px;
+  margin: 5px 0;
+}
+
+.mods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.item-type-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: bold;
+  z-index: 10;
+  text-transform: uppercase;
+}
+
+.mod-badge {
+  background-color: #28a745;
+  color: white;
+}
+
+.card-badge {
+  background-color: #007bff;
+  color: white;
+}
+
+.stats-info {
+  text-align: center;
+  font-family: 'God of War', sans-serif;
+}
+
+.card {
+  position: relative;
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.card-actions .btn {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #1a1a1a;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #aaa;
+}
+
+.close:hover {
+  color: white;
+}
+
+.modal-img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin: 10px 0;
+}
+
+.detalle-item {
+  border: 1px solid #333;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  background: #2a2a2a;
+}
+
+.modal-actions {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.mod-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 15px;
+  color: white;
+}
+
+.card-title {
+  color: #f4c542;
+  margin-bottom: 10px;
+}
+
+.card-description {
+  font-size: 14px;
+  color: #ccc;
+  margin-bottom: 15px;
+}
+
+.mod-details-modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+
+  .modal-content {
+    background-color: #1a1a1a;
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    color: #fff;
+
+    .close {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #aaa;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+
+    .modal-image {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 5px;
+      margin: 1rem 0;
+    }
+
+    h2 {
+      color: #ffd700;
+      margin-bottom: 1rem;
+    }
+
+    .versions-detail {
+      margin-top: 2rem;
+
+      h3 {
+        color: #ffd700;
+        border-bottom: 1px solid #444;
+        padding-bottom: 0.5rem;
+      }
+
+      .version-detail {
+        margin: 1rem 0;
+        padding: 1rem;
+        background-color: #2a2a2a;
+        border-radius: 5px;
+
+        .version-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.5rem;
+
+          h4 {
+            color: #ffd700;
+            margin: 0;
+          }
+
+          .version-date {
+            font-size: 0.8em;
+            color: #999;
+          }
+        }
+
+        .version-info {
+          display: flex;
+          gap: 1rem;
+          margin: 0.5rem 0;
+
+          .info-item {
+            font-size: 0.9em;
+            color: #ccc;
+          }
+        }
+
+        .files-list {
+          margin-top: 1rem;
+
+          h5 {
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+          }
+
+          ul {
+            list-style-type: disc;
+            margin-left: 1rem;
+
+            li {
+              color: #ccc;
+              margin: 0.2rem 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.mod-card {
+  background: rgba(0, 0, 0, 0.8);  // fondo negro con 80% opacidad
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.card-title {
+  font-family: 'god', serif;  // tu font God of War
+  color: #ff0000;  // rojo para título
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.card-description {
+  color: white;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.btn-download {
+  background-color: #ff0000;  // rojo
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #990000;  // rojo oscuro al hover
+  }
+}
+
+.btn-info {
+  background-color: #ff0000;  // rojo también para info para unificar
+  color: white;
+
+  &:hover {
+    background-color: #990000;
+  }
+}
+
+/* Modal para donación */
+.btn-donate-yes, .btn-donate-no {
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-donate-yes {
+  background-color: #003087; /* azul PayPal */
+  color: white;
+
+  &:hover {
+    background-color: #001F5B;
+  }
+}
+
+.btn-donate-no {
+  background-color: #ff0000;
+  color: white;
+
+  &:hover {
+    background-color: #990000;
+  }
+}
+.donate-title {
+  font-size: 1.2rem;  /* texto más pequeño */
+  margin-bottom: 10px;
+  font-weight: normal;
+  color: white;
+  font-family: 'god', serif;
+}
+
+.paypal-icon {
+  width: 60px;    /* tamaño adecuado para el icono */
+  height: auto;
+  filter: drop-shadow(0 0 3px rgba(0,0,0,0.7)); /* un poco de sombra para destacarlo */
+}
+.donate-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.donate-modal-content {
+  background-color: #222;
+  padding: 20px 30px;
+  border-radius: 8px;
+  color: white;
+  max-width: 400px;
+  text-align: center;
+}
+
+.donate-modal-buttons button {
+  margin: 10px 8px;
+  min-width: 100px;
+}

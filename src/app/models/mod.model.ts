@@ -23,4 +23,9 @@ export interface ModDetalle {
 
 export interface ModCompleto extends ModMaestro {
   detalles?: ModDetalle[];
+
+  // Props inglesas opcionales para compatibilidad
+  title?: string;
+  img?: string;
+  description?: string;
 }

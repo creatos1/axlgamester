@@ -28,6 +28,35 @@ export class ModMaestroService {
     this.modDetalleCollection = collection(this.firestore, 'modsDetalle') as CollectionReference<ModDetalle>;
   }
 
+  // Método de diagnóstico para verificar el estado de las colecciones
+  async diagnosticarColecciones(): Promise<void> {
+    try {
+      console.log('🔍 DIAGNÓSTICO DE COLECCIONES FIRESTORE');
+      
+      // Verificar modsMaestro
+      const maestrosSnapshot = await getDocs(this.modMaestroCollection);
+      console.log('📊 modsMaestro - Total documentos:', maestrosSnapshot.size);
+      maestrosSnapshot.forEach(doc => {
+        console.log('📄 Maestro Doc ID:', doc.id, 'Data:', doc.data());
+      });
+      
+      // Verificar modsDetalle
+      const detallesSnapshot = await getDocs(this.modDetalleCollection);
+      console.log('📊 modsDetalle - Total documentos:', detallesSnapshot.size);
+      detallesSnapshot.forEach(doc => {
+        console.log('📄 Detalle Doc ID:', doc.id, 'Data:', doc.data());
+      });
+      
+      // Verificar si hay datos en cards (colección antigua)
+      const cardsCollection = collection(this.firestore, 'cards');
+      const cardsSnapshot = await getDocs(cardsCollection);
+      console.log('📊 cards (antigua) - Total documentos:', cardsSnapshot.size);
+      
+    } catch (error) {
+      console.error('❌ Error en diagnóstico:', error);
+    }
+  }
+
   // CRUD para ModMaestro
   async crearModMaestro(mod: Omit<ModMaestro, 'id'>): Promise<string> {
     const docRef = await addDoc(this.modMaestroCollection, mod);
@@ -95,17 +124,49 @@ export class ModMaestroService {
 
   // Método para obtener mods completos con sus detalles
   async obtenerModsCompletos(): Promise<ModCompleto[]> {
-    const maestros = await this.obtenerModsMaestro();
-    const modsCompletos: ModCompleto[] = [];
+    try {
+      console.log('🔍 Iniciando obtención de mods completos...');
+      
+      // Primero verificar si las colecciones existen
+      const maestrosSnapshot = await getDocs(this.modMaestroCollection);
+      console.log('📊 Total documentos en modsMaestro:', maestrosSnapshot.size);
+      
+      const detallesSnapshot = await getDocs(this.modDetalleCollection);
+      console.log('📊 Total documentos en modsDetalle:', detallesSnapshot.size);
+      
+      const maestros = await this.obtenerModsMaestro();
+      console.log('🎯 Maestros obtenidos:', maestros.length);
+      console.log('📋 Datos maestros:', maestros);
+      
+      const modsCompletos: ModCompleto[] = [];
 
-    for (const maestro of maestros) {
-      const detalles = await this.obtenerDetallesPorMaestro(maestro.id!);
-      modsCompletos.push({
-        ...maestro,
-        detalles
-      });
+      for (const maestro of maestros) {
+        console.log(`🔄 Procesando maestro: ${maestro.nombre} (ID: ${maestro.id})`);
+        try {
+          const detalles = await this.obtenerDetallesPorMaestro(maestro.id!);
+          console.log(`✅ Detalles para ${maestro.nombre}:`, detalles.length, detalles);
+          
+          modsCompletos.push({
+            ...maestro,
+            detalles
+          });
+        } catch (detalleError) {
+          console.error(`❌ Error obteniendo detalles para ${maestro.nombre}:`, detalleError);
+          // Añadir el maestro sin detalles en caso de error
+          modsCompletos.push({
+            ...maestro,
+            detalles: []
+          });
+        }
+      }
+
+      console.log('🎉 Mods completos finales:', modsCompletos.length);
+      console.log('📝 Detalle completo:', modsCompletos);
+      return modsCompletos;
+      
+    } catch (error) {
+      console.error('💥 Error crítico en obtenerModsCompletos:', error);
+      throw error;
     }
-
-    return modsCompletos;
   }
 }
