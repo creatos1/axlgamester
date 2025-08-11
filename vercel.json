@@ -1,12 +1,9 @@
 {
   "version": 2,
-  "framework": "angular",
-  "buildCommand": "ng build --configuration=production",
-  "outputDirectory": "dist/gamester/browser",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+  "builds": [
+    { "src": "angular.json", "use": "@vercel/static-build", "config": {} }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
