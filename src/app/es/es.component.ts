@@ -13,7 +13,7 @@ declare var particlesJS: any;
   styleUrls: ['./es.component.scss']
 })
 
-export class EsComponent implements OnInit, AfterViewInit {
+export class EsComponent implements OnInit {
   public cards$: Observable<any[]> | undefined;
   public slickConfig: any;
   public userService = inject(UserService);
