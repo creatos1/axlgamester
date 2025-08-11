@@ -81,8 +81,28 @@
     <div class="youtube-section">
       <br><br><br>
       <h2 class="g">NOVEDADES EN MI CANAL DE YOUTUBE</h2>
-      <br><br><br><br><br>
-
+      <br><br><br>
+      
+      <div class="youtube-videos-container" *ngIf="videos && videos.length > 0">
+        <div class="video-grid">
+          <div class="video-card" *ngFor="let video of videos; trackBy: trackByVideoId" (click)="abrirVideo(video.id.videoId)">
+            <div class="video-thumbnail">
+              <img [src]="video.snippet.thumbnails.medium.url" [alt]="video.snippet.title">
+              <div class="play-overlay">
+                <i class="fab fa-youtube"></i>
+              </div>
+            </div>
+            <div class="video-info">
+              <h3 class="video-title">{{ video.snippet.title }}</h3>
+              <p class="video-date">{{ video.snippet.publishedAt | date:'dd/MM/yyyy' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="loading-youtube" *ngIf="!videos || videos.length === 0">
+        <p>Cargando videos...</p>
+      </div>
 
       <br><br><br><br>
     </div>

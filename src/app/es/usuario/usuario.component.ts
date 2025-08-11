@@ -42,10 +42,25 @@ export class UsuarioComponent implements OnInit, OnDestroy {
   }
 
   async checkIfAdmin(email: string): Promise<boolean> {
-    const usersRef = collection(this.firestore, 'users');
-    const q = query(usersRef, where('email', '==', email), where('role', '==', 'admin'));
-    const querySnapshot = await getDocs(q);
-    return !querySnapshot.empty;
+    try {
+      const usersRef = collection(this.firestore, 'users');
+      const q = query(usersRef, where('email', '==', email));
+      const querySnapshot = await getDocs(q);
+      
+      if (querySnapshot.empty) {
+        console.log('❌ No se encontró el usuario en Firestore');
+        return false;
+      }
+
+      const userData = querySnapshot.docs[0].data();
+      console.log('✅ Datos del usuario:', userData);
+      console.log('✅ Rol del usuario:', userData['role']);
+      
+      return userData['role'] === 'admin';
+    } catch (error) {
+      console.error('❌ Error verificando rol de admin:', error);
+      return false;
+    }
   }
 
   toggleVertical() {

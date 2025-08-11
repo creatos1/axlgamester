@@ -5,6 +5,8 @@ const isProduction = typeof window !== 'undefined' &&
 
 export const environment = {
   production: isProduction,
+  youtubeApiKey: 'AIzaSyADneGosKDYJYeRXQTc8yV_ZDsGAXARgCo',
+  youtubeChannelId: 'UCU6JmBJ7J8WeuwBOrJmeMKA',
   firebaseConfig: {    
     apiKey: "AIzaSyDjn_vBgS__i94WVb1Vveqs1fW3ipBHR3c",
     authDomain: "axlgamester.firebaseapp.com",
@@ -18,6 +20,8 @@ export const environment = {
 
 export const dev = {
   production: false,
+  youtubeApiKey: 'AIzaSyADneGosKDYJYeRXQTc8yV_ZDsGAXARgCo',
+  youtubeChannelId: 'UCU6JmBJ7J8WeuwBOrJmeMKA',
   firebaseConfig: {    
     apiKey: "AIzaSyDjn_vBgS__i94WVb1Vveqs1fW3ipBHR3c",
     authDomain: "axlgamester.firebaseapp.com",

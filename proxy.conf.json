@@ -10,8 +10,7 @@
     },
     "headers": {
       "Accept": "application/json",
-      "User-Agent": "Angular-App/1.0",
-      "Referer": "http://localhost:4200"
+      "User-Agent": "Angular-App/1.0"
     }
   }
 }

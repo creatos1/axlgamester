@@ -3,6 +3,7 @@ import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from '../auth/user.service';
 import { CardService } from '../services/card.service';
+import { YoutubeService, YouTubeVideo } from '../services/youtube.service';
 import { Observable } from 'rxjs';
 
 declare var particlesJS: any;
@@ -31,6 +32,7 @@ export class EsComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private cardService: CardService,
+    private youtubeService: YoutubeService
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +40,7 @@ export class EsComponent implements OnInit {
     this.cargarTarjetas();
     this.configurarParticulas();
     this.configurarAudio();
+    this.cargarVideosYoutube();
 
     const storedEmail = this.userService.getUserEmail();
     this.email = storedEmail ? storedEmail : '';
@@ -46,8 +49,6 @@ export class EsComponent implements OnInit {
     if (botonEnviarCorreo) {
       botonEnviarCorreo.addEventListener('click', () => this.redirigirCorreo());
     }
-
-    // Cargar videos de YouTube con reintentos automáticos más agresivos
 
 
   }
@@ -244,6 +245,27 @@ export class EsComponent implements OnInit {
     }
 
     return array;
+  }
+
+  cargarVideosYoutube(): void {
+    this.youtubeService.getChannelVideos(6).subscribe({
+      next: (videos: YouTubeVideo[]) => {
+        this.videos = videos;
+        console.log('✅ Videos de YouTube cargados:', videos);
+      },
+      error: (error) => {
+        console.error('❌ Error al cargar videos de YouTube:', error);
+        // Reintentar después de 3 segundos
+        setTimeout(() => {
+          this.cargarVideosYoutube();
+        }, 3000);
+      }
+    });
+  }
+
+  abrirVideo(videoId: string): void {
+    const url = this.youtubeService.getVideoUrl(videoId);
+    window.open(url, '_blank');
   }
 
   // TrackBy function for better performance

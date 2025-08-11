@@ -6,8 +6,16 @@
   <div class="usuario-dropdown">
     <img src="../../assets/img/5.gif" alt="Usuario" class="usuario-icon" />
     <p>Usuario: "{{ email }}"</p>
-    <button (click)="logout()" class="btn-logout">Cerrar Sesión</button>
-    <button *ngIf="isAdmin" (click)="goToAdmin()" class="btn-admin">Panel de Control</button>
+    <!-- Botón para acceder al panel de admin (solo si es admin) -->
+        <button *ngIf="isAdmin" class="admin-button" (click)="goToAdmin()">
+          <i class="fas fa-cog"></i>
+          Acceder al panel de admin
+        </button>
+
+        <button class="logout-button" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i>
+          Cerrar Sesión
+        </button>
     <button (click)="deleteOwnAccount()" class="btn-delete">Eliminar mi cuenta</button>
   </div>
 </section>
