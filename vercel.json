@@ -1,8 +1,7 @@
-
 {
   "functions": {
     "api/youtube/search.js": {
-      "runtime": "@vercel/node"
+      "runtime": "vercel-nodejs@18.14.0"
     }
   },
   "rewrites": [
