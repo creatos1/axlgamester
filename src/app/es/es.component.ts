@@ -1,7 +1,6 @@
 
 import { Component, OnInit, AfterViewInit, OnDestroy, ChangeDetectionStrategy, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { YoutubeService } from '../services/youtube.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 
@@ -21,7 +20,6 @@ export class EsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private youtubeService: YoutubeService,
     private spinner: NgxSpinnerService,
     private ngZone: NgZone
   ) {}
