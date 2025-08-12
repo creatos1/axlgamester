@@ -82,8 +82,8 @@ export class AuthService {
   async sendVerificationEmail(user: User) {
     try {
       await sendEmailVerification(user, {
-        url: window.location.origin + '/email-verified', // URL a la que redirige después de verificar
-        handleCodeInApp: true
+        url: window.location.origin + '/essesion.es', // URL autorizada
+        handleCodeInApp: false
       });
       console.log('Correo de verificación enviado');
     } catch (error) {
