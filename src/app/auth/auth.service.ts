@@ -81,10 +81,8 @@ export class AuthService {
 
   async sendVerificationEmail(user: User) {
     try {
-      await sendEmailVerification(user, {
-        url: window.location.origin + '/essesion.es', // URL autorizada
-        handleCodeInApp: false
-      });
+      // Enviar correo sin URL personalizada para evitar problemas de dominio
+      await sendEmailVerification(user);
       console.log('Correo de verificación enviado');
     } catch (error) {
       console.error('Error enviando correo de verificación:', error);
@@ -123,10 +121,8 @@ export class AuthService {
       
       const sanitizedEmail = this.securityService.sanitizeInput(email);
       
-      await sendPasswordResetEmail(this.auth, sanitizedEmail, {
-        url: window.location.origin + '/essesion.es',
-        handleCodeInApp: false
-      });
+      // Enviar correo sin URL personalizada para evitar problemas de dominio
+      await sendPasswordResetEmail(this.auth, sanitizedEmail);
       console.log('Correo de recuperación enviado');
     } catch (error) {
       console.error('Error enviando correo de recuperación:', error);
