@@ -18,7 +18,7 @@ export class AuthService {
   ) {
     onAuthStateChanged(this.auth, (user) => {
       this.currentUserSubject.next(user);
-      console.log('Usuario autenticado:', user); 
+      console.log('Usuario autenticado:', user);
     });
   }
 
@@ -27,21 +27,21 @@ export class AuthService {
     if (!this.securityService.validateEmail(email)) {
       throw new Error('Formato de email inválido');
     }
-    
+
     const sanitizedEmail = this.securityService.sanitizeInput(email);
     const passwordValidation = this.securityService.validatePassword(password);
-    
+
     if (!passwordValidation.isValid) {
       throw new Error('Contraseña no válida: ' + passwordValidation.errors.join(', '));
     }
-    
+
     const userCredential = await signInWithEmailAndPassword(this.auth, sanitizedEmail, password);
-    
+
     if (!userCredential.user.emailVerified) {
       await this.logout();
       throw new Error('Por favor, verifica tu email antes de iniciar sesión. Revisa tu bandeja de entrada.');
     }
-    
+
     return userCredential;
   }
 
@@ -50,14 +50,14 @@ export class AuthService {
     if (!this.securityService.validateEmail(email)) {
       throw new Error('Formato de email inválido');
     }
-    
+
     const sanitizedEmail = this.securityService.sanitizeInput(email);
     const passwordValidation = this.securityService.validatePassword(password);
-    
+
     if (!passwordValidation.isValid) {
       throw new Error('Contraseña no válida: ' + passwordValidation.errors.join(', '));
     }
-    
+
     // Paso 1: crea usuario en Auth
     const userCredential = await createUserWithEmailAndPassword(this.auth, sanitizedEmail, password);
 
@@ -79,21 +79,22 @@ export class AuthService {
     return userCredential;
   }
 
-  async sendVerificationEmail(user: User) {
-    try {
-      // Enviar correo sin URL personalizada para evitar problemas de dominio
-      await sendEmailVerification(user);
-      console.log('Correo de verificación enviado');
-    } catch (error) {
-      console.error('Error enviando correo de verificación:', error);
-      throw error;
-    }
+  async sendVerificationEmail(user: User): Promise<void> {
+    const actionCodeSettings = {
+      url: `${window.location.origin}/essesion.es`,
+      handleCodeInApp: true
+    };
+    await sendEmailVerification(user, actionCodeSettings);
   }
 
-  async resendVerificationEmail() {
+  async resendVerificationEmail(): Promise<void> {
     const user = this.getCurrentUser();
-    if (user && !user.emailVerified) {
-      await this.sendVerificationEmail(user);
+    if (user) {
+      const actionCodeSettings = {
+        url: `${window.location.origin}/essesion.es`,
+        handleCodeInApp: true
+      };
+      await sendEmailVerification(user, actionCodeSettings);
     } else {
       throw new Error('No hay usuario o el email ya está verificado');
     }
@@ -118,9 +119,9 @@ export class AuthService {
       if (!this.securityService.validateEmail(email)) {
         throw new Error('Formato de email inválido');
       }
-      
+
       const sanitizedEmail = this.securityService.sanitizeInput(email);
-      
+
       // Enviar correo sin URL personalizada para evitar problemas de dominio
       await sendPasswordResetEmail(this.auth, sanitizedEmail);
       console.log('Correo de recuperación enviado');
