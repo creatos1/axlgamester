@@ -19,6 +19,8 @@ export class ModsesComponent implements OnInit {
   public allItems: any[] = [];
   public loading: boolean = true;
   public selectedMod: any | null = null;
+  public showDonateModal = false;
+  public itemToDownload: any = null;
 
   constructor(
     private authService: AuthService,
@@ -38,22 +40,14 @@ export class ModsesComponent implements OnInit {
     try {
       this.loading = true;
 
-      // Cargar mods y cards en paralelo para mejor rendimiento
       const [modsCompletos, cardsObservable] = await Promise.all([
         this.modMaestroService.obtenerModsCompletos(),
         this.cardService.getCards().toPromise()
       ]);
 
-      console.log('Mods completos obtenidos:', modsCompletos);
-      console.log('Cards obtenidos:', cardsObservable);
-
-      // Mostrar todos los mods, incluso los inactivos para debugging
       this.mods = modsCompletos;
       this.cards = cardsObservable || [];
-      
-      console.log('Mods después de filtrar:', this.mods);
-      console.log('Cards después de asignar:', this.cards);
-      
+
       this.combineAllItems();
       this.loading = false;
     } catch (error) {
@@ -72,12 +66,9 @@ export class ModsesComponent implements OnInit {
       fechaCreacion: mod.fechaCreacion,
       activo: mod.activo,
       detalles: mod.detalles,
-
-      // Campos en inglés para plantilla
       title: mod.nombre,
       img: mod.imagen,
       description: mod.descripcion,
-
       type: 'mod',
       originalData: mod
     }));
@@ -94,10 +85,6 @@ export class ModsesComponent implements OnInit {
     }));
 
     this.allItems = [...modsDisplay, ...cardsDisplay];
-    console.log('Mods display:', modsDisplay.length);
-    console.log('Cards display:', cardsDisplay.length);
-    console.log('Items combinados totales:', this.allItems.length);
-    console.log('Todos los items:', this.allItems);
   }
 
   showItemDetails(item: any): void {
@@ -118,44 +105,71 @@ export class ModsesComponent implements OnInit {
         console.error('Error al cerrar sesión:', error);
       });
   }
-// Añade estas propiedades
-public showDonateModal = false;
-public itemToDownload: any = null;
 
-// Abrir modal de donación
-openDonateModal(item: any) {
-  this.itemToDownload = item;
-  this.showDonateModal = true;
-}
-// Método para abrir el link en nueva pestaña
-openLink(link: string) {
-  if (link) {
-    window.open(link, '_blank');
+  // 🔹 Abrir modal de donación
+  openDonateModal(item: any) {
+    const currentUser = this.authService.getCurrentUser();
+
+    if (!currentUser) {
+      // Redirigir sin mostrar alertas
+      this.router.navigate(['/essesion.es']);
+      return;
+    }
+
+    this.itemToDownload = item;
+    this.showDonateModal = true;
   }
-}
 
-// Cerrar modal donación
-closeDonateModal() {
-  this.showDonateModal = false;
-  this.itemToDownload = null;
-}
-
-// Acción botón "Sí" donar
-donate() {
-  // Reemplaza con tu enlace PayPal real
-  window.open('https://www.paypal.com/paypalme/Axlgamesteryt?country.x=MX&locale.x=es_XC', '_blank');
-  this.showDonateModal = false;
-  this.itemToDownload = null;
-}
-
-// Acción botón "No" descargar
-download() {
-  if (this.itemToDownload?.link) {
-    window.open(this.itemToDownload.link, '_blank');
+  // Abrir link en nueva pestaña
+  openLink(link: string) {
+    if (link) {
+      window.open(link, '_blank');
+    }
   }
-  this.showDonateModal = false;
-  this.itemToDownload = null;
-}
+
+  // Cerrar modal de donación
+  closeDonateModal() {
+    this.showDonateModal = false;
+    this.itemToDownload = null;
+  }
+
+  // 🔹 Botón “Sí, donar”
+  donate() {
+    const currentUser = this.authService.getCurrentUser();
+
+    if (!currentUser) {
+      this.showDonateModal = false;
+      this.itemToDownload = null;
+      this.router.navigate(['/essesion.es']);
+      return;
+    }
+
+    window.open(
+      'https://www.paypal.com/paypalme/Axlgamesteryt?country.x=MX&locale.x=es_XC',
+      '_blank'
+    );
+    this.showDonateModal = false;
+    this.itemToDownload = null;
+  }
+
+  // 🔹 Botón “No, descargar”
+  download() {
+    const currentUser = this.authService.getCurrentUser();
+
+    if (!currentUser) {
+      this.showDonateModal = false;
+      this.itemToDownload = null;
+      this.router.navigate(['/essesion.es']);
+      return;
+    }
+
+    if (this.itemToDownload?.link) {
+      window.open(this.itemToDownload.link, '_blank');
+    }
+
+    this.showDonateModal = false;
+    this.itemToDownload = null;
+  }
 
   convertTimestampToDate(timestamp: any): Date {
     if (timestamp && timestamp.seconds) {
@@ -199,7 +213,6 @@ download() {
     }
   }
 
-  // TrackBy function para optimizar el renderizado de la lista
   trackByItemId(index: number, item: any): any {
     return item.id || index;
   }
