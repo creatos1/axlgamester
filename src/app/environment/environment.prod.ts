@@ -1,7 +1,7 @@
 
 export const environment = {
   production: true,
-  youtubeApiKey: '', // Se llenará desde variables de entorno en Vercel
+  youtubeChannelId: 'UCU6JmBJ7J8WeuwBOrJmeMKA',
   firebaseConfig: {    
     apiKey: "AIzaSyDjn_vBgS__i94WVb1Vveqs1fW3ipBHR3c",
     authDomain: "axlgamester.firebaseapp.com",

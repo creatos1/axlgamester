@@ -1,16 +1,9 @@
 
 {
-  "/api/youtube/*": {
-    "target": "https://www.googleapis.com",
-    "secure": true,
+  "/api/*": {
+    "target": "http://localhost:3000",
+    "secure": false,
     "changeOrigin": true,
-    "logLevel": "debug",
-    "pathRewrite": {
-      "^/api/youtube/search": "/youtube/v3/search"
-    },
-    "headers": {
-      "Accept": "application/json",
-      "User-Agent": "Angular-App/1.0"
-    }
+    "logLevel": "debug"
   }
 }

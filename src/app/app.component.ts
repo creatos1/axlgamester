@@ -27,6 +27,8 @@ export class AppComponent implements OnInit {
     return !hostname.includes('localhost') &&
            !hostname.includes('127.0.0.1') &&
            !hostname.includes('replit.dev') &&
-           (hostname.includes('vercel.app') || hostname.includes('axlgamester.com'));
+           (hostname.includes('replit.app') ||
+            hostname.includes('vercel.app') || 
+            hostname.includes('axlgamester.com'));
   }
 }
