@@ -1,0 +1,19 @@
+Unable to parse HTML; parse5 error code unexpected-character-in-attribute-name
+ at I:/Axl/axlgamester/.angular/vite-root/gamester/index.html:27:814
+25 |  
+26 |    <!-- Security Headers -->
+27 |  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://firebaseapp.com https://*.firebaseapp.com https://www.gstatic.com https://cdn.jsdelivr.net https://pagead2.googlesyndication.com https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https: blob: https://i.ytimg.com https://yt3.ggpht.com; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://vercel.live; frame-src 'self' https://www.youtube.com https://youtube.com; object-src 'none'; base-uri 'self'; form-action 'self';" <meta="">
+   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ^
+28 |    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+29 |    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+ at I:/Axl/axlgamester/.angular/vite-root/gamester/index.html:27:814
+    at handleParseError (file:///I:/Axl/axlgamester/node_modules/vite/dist/node/chunks/dep-DyBnyoVI.js:35142:9)
+    at Parser.onParseError (file:///I:/Axl/axlgamester/node_modules/vite/dist/node/chunks/dep-DyBnyoVI.js:35067:7)
+    at Tokenizer._err (file:///I:/Axl/axlgamester/node_modules/vite/dist/node/chunks/dep-D-7KCb9p.js:1155:89)
+    at Tokenizer._stateAttributeName (file:///I:/Axl/axlgamester/node_modules/vite/dist/node/chunks/dep-D-7KCb9p.js:2547:22)
+    at Tokenizer._stateBeforeAttributeName (file:///I:/Axl/axlgamester/node_modules/vite/dist/node/chunks/dep-D-7KCb9p.js:2519:22)
+    at Tokenizer._callState (file:///I:/Axl/axlgamester/node_modules/vite/dist/node/chunks/dep-D-7KCb9p.js:1638:22)
+    at Tokenizer._runParsingLoop (file:///I:/Axl/axlgamester/node_modules/vite/dist/node/chunks/dep-D-7KCb9p.js:1179:22)
+    at Tokenizer.write (file:///I:/Axl/axlgamester/node_modules/vite/dist/node/chunks/dep-D-7KCb9p.js:1204:14)
+    at Parser.parse (file:///I:/Axl/axlgamester/node_modules/vite/dist/node/chunks/dep-D-7KCb9p.js:4886:26)
+    at parse (file:///I:/Axl/axlgamester/node_modules/vite/dist/node/chunks/dep-D-7KCb9p.js:7957:19
