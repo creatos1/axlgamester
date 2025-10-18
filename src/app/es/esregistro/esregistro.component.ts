@@ -50,7 +50,7 @@ mostrarAviso: boolean = false;
       Validators.required,
       noInjectionValidator
     ]),
-    acceptTerms: this._formBuilder.control<boolean | null>(false, Validators.requiredTrue),
+    acceptTerms: this._formBuilder.control<boolean | null>(false),
   });
 
   calculatePasswordStrength(password: string | null | undefined) {
