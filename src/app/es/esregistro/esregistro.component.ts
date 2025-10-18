@@ -32,8 +32,6 @@ mostrarAviso: boolean = false;
   successMessage: string | null = null;
   errorMessage: string | null = null;
   passwordStrength: string = '';
-  showVerificationModal: boolean = false;
-  registeredEmail: string = '';
   isLoading: boolean = false;
 
   form = this._formBuilder.group<FormSignUp>({
@@ -107,10 +105,5 @@ mostrarAviso: boolean = false;
 
   toggleVertical() {
     this.isVertical = !this.isVertical;
-  }
-
-  closeVerificationModal() {
-    this.showVerificationModal = false;
-    this.router.navigate(['/essesion.es']);
   }
 }
