@@ -86,6 +86,10 @@ mostrarAviso: boolean = false;
           this.errorMessage = null;
           this.registeredEmail = email;
           this.showVerificationModal = true;
+          // Redirigir después de mostrar el modal
+          setTimeout(() => {
+            this.router.navigate(['/home.es']);
+          }, 3000);
         })
         .catch(error => {
           console.error('Error al registrar el usuario:', error);
@@ -104,6 +108,6 @@ mostrarAviso: boolean = false;
 
   closeVerificationModal() {
     this.showVerificationModal = false;
-    this.router.navigate(['/essesion.es']);
+    this.router.navigate(['/home.es']);
   }
 }

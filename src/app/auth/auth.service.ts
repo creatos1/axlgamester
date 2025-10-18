@@ -37,11 +37,6 @@ export class AuthService {
 
     const userCredential = await signInWithEmailAndPassword(this.auth, sanitizedEmail, password);
 
-    if (!userCredential.user.emailVerified) {
-      await this.logout();
-      throw new Error('Por favor, verifica tu email antes de iniciar sesión. Revisa tu bandeja de entrada.');
-    }
-
     return userCredential;
   }
 
@@ -61,22 +56,38 @@ export class AuthService {
     // Paso 1: crea usuario en Auth
     const userCredential = await createUserWithEmailAndPassword(this.auth, sanitizedEmail, password);
 
-    // Paso 2: envía correo de verificación
-    await this.sendVerificationEmail(userCredential.user);
+    // Paso 2: envía correo de bienvenida/aviso de registro
+    await this.sendWelcomeEmail(userCredential.user);
 
-    // Paso 3: guarda en Firestore usando uid (sin activar hasta verificar)
+    // Paso 3: guarda en Firestore usando uid
     const uid = userCredential.user.uid;
     const userRef = doc(this.firestore, `users/${uid}`);
     await setDoc(userRef, {
       email: sanitizedEmail,
       createdAt: new Date(),
       role: 'user',
-      emailVerified: false,
+      emailVerified: true,
       lastLogin: new Date(),
       ipAddress: 'hidden' // No guardamos IP por privacidad
     });
 
     return userCredential;
+  }
+
+  async sendWelcomeEmail(user: User): Promise<void> {
+    // Envía un correo de bienvenida/aviso usando la función de verificación de Firebase
+    // pero solo como notificación, no es obligatorio verificar
+    const actionCodeSettings = {
+      url: `${window.location.origin}/home.es`,
+      handleCodeInApp: false
+    };
+    
+    try {
+      await sendEmailVerification(user, actionCodeSettings);
+    } catch (error) {
+      console.log('Error al enviar correo de bienvenida:', error);
+      // No lanzamos error para que el registro continúe
+    }
   }
 
   async sendVerificationEmail(user: User): Promise<void> {

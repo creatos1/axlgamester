@@ -2,43 +2,32 @@
 <div class="modal-overlay" *ngIf="isVisible" (click)="close()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h2>¡Registro Exitoso!</h2>
+      <h2>¡Bienvenido!</h2>
       <button class="close-btn" (click)="close()">&times;</button>
     </div>
     
     <div class="modal-body">
       <div class="success-icon">
-        <i class="fas fa-envelope-check"></i>
+        <i class="fas fa-check-circle"></i>
       </div>
       
-      <h3>Verifica tu correo electrónico</h3>
+      <h3>Registro completado con éxito</h3>
       
-      <p>Se ha enviado un correo de verificación a:</p>
+      <p>Tu cuenta ha sido creada exitosamente:</p>
       <p class="email-highlight">{{ userEmail }}</p>
       
-      <p>Por favor, revisa tu bandeja de entrada y haz clic en el enlace de verificación para activar tu cuenta.</p>
+      <p>¡Ya puedes empezar a usar tu cuenta! Serás redirigido al inicio en unos momentos.</p>
       
       <div class="spam-warning">
-        <i class="fas fa-exclamation-triangle"></i>
-        <p><strong>¡Importante!</strong> Si no encuentras el correo en tu bandeja de entrada, <strong>revisa tu carpeta de SPAM o Correo no deseado</strong>. A veces los correos de verificación pueden llegar ahí.</p>
+        <i class="fas fa-info-circle"></i>
+        <p>Hemos enviado un correo de bienvenida a tu dirección. <strong>Revisa tu bandeja de entrada o carpeta de SPAM</strong> si no lo ves.</p>
       </div>
       
       <div class="modal-actions">
-        <button 
-          class="resend-btn" 
-          (click)="resendVerificationEmail()" 
-          [disabled]="isResending">
-          {{ isResending ? 'Enviando...' : 'Reenviar correo' }}
-        </button>
-        
         <button class="continue-btn" (click)="close()">
-          Entendido
+          Ir al inicio
         </button>
       </div>
-      
-      <p class="note">
-        <small>Si no encuentras el correo, revisa tu carpeta de spam.</small>
-      </p>
     </div>
   </div>
 </div>
