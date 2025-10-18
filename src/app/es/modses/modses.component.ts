@@ -44,8 +44,15 @@ export class ModsesComponent implements OnInit {
         this.cardService.getCards().toPromise()
       ]);
 
-      this.mods = modsCompletos.filter(mod => mod.activo);
+      console.log('Mods completos obtenidos:', modsCompletos);
+      console.log('Cards obtenidos:', cardsObservable);
+
+      // Mostrar todos los mods, incluso los inactivos para debugging
+      this.mods = modsCompletos;
       this.cards = cardsObservable || [];
+      
+      console.log('Mods después de filtrar:', this.mods);
+      console.log('Cards después de asignar:', this.cards);
       
       this.combineAllItems();
       this.loading = false;
@@ -87,7 +94,10 @@ export class ModsesComponent implements OnInit {
     }));
 
     this.allItems = [...modsDisplay, ...cardsDisplay];
-    console.log('Items combinados:', this.allItems.length);
+    console.log('Mods display:', modsDisplay.length);
+    console.log('Cards display:', cardsDisplay.length);
+    console.log('Items combinados totales:', this.allItems.length);
+    console.log('Todos los items:', this.allItems);
   }
 
   showItemDetails(item: any): void {
