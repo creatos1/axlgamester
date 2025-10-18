@@ -140,9 +140,17 @@
 </div>
 
 
-          <button type="submit" title="Registrar" [disabled]="form.invalid">Registrarse</button>
+          <button type="submit" title="Registrar" [disabled]="form.invalid || isLoading">
+            <span *ngIf="!isLoading">Registrarse</span>
+            <span *ngIf="isLoading">Registrando...</span>
+          </button>
 
           <br><br>
+
+          <div *ngIf="isLoading" style="text-align:center; color: white;">
+            <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i>
+            <p>Creando tu cuenta...</p>
+          </div>
 
           <div style="text-align:center" *ngIf="errorMessage" style="color:rgb(255, 0, 0)">
             {{ errorMessage }}

@@ -65,8 +65,16 @@
             </div>
           </div>
 
-          <button type="submit" [disabled]="form.invalid">Iniciar Sesión</button>
+          <button type="submit" [disabled]="form.invalid || isLoading">
+            <span *ngIf="!isLoading">Iniciar Sesión</span>
+            <span *ngIf="isLoading">Iniciando...</span>
+          </button>
         </form>
+
+        <div *ngIf="isLoading" style="text-align:center; color: white; margin-top: 10px;">
+          <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i>
+          <p>Verificando credenciales...</p>
+        </div>
 
         <div class="forgot-password">
           <button type="button" class="link-btn" (click)="goToPasswordReset()">

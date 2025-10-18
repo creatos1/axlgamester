@@ -34,6 +34,7 @@ mostrarAviso: boolean = false;
   passwordStrength: string = '';
   showVerificationModal: boolean = false;
   registeredEmail: string = '';
+  isLoading: boolean = false;
 
   form = this._formBuilder.group<FormSignUp>({
     email: this._formBuilder.control<string | null>(null, [
@@ -81,18 +82,18 @@ mostrarAviso: boolean = false;
     const password = this.securityService.sanitizeInput(this.form.get('password')?.value as string);
 
     if (email && password) {
+      this.isLoading = true;
+      this.errorMessage = null;
+      
       this.authService.register(email, password)
         .then(() => {
-          this.errorMessage = null;
+          this.isLoading = false;
           this.registeredEmail = email;
           this.showVerificationModal = true;
-          // Redirigir después de mostrar el modal
-          setTimeout(() => {
-            this.router.navigate(['/home.es']);
-          }, 3000);
         })
         .catch(error => {
           console.error('Error al registrar el usuario:', error);
+          this.isLoading = false;
           if (error.code === 'auth/email-already-in-use') {
             this.errorMessage = 'El usuario ya está registrado.';
           } else {
@@ -108,6 +109,6 @@ mostrarAviso: boolean = false;
 
   closeVerificationModal() {
     this.showVerificationModal = false;
-    this.router.navigate(['/home.es']);
+    this.router.navigate(['/essesion.es']);
   }
 }

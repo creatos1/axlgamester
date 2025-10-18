@@ -18,6 +18,7 @@ export class EssesionComponent {
   private userService = inject(UserService);
   successMessage: string | null = null;
   errorMessage: string | null = null;
+  isLoading: boolean = false;
 
   // Inicializa el formulario de inicio de sesión
   form: FormGroup = this._formBuilder.group({
@@ -34,27 +35,32 @@ export class EssesionComponent {
     const password = this.form.get('password')?.value as string | null;
 
     if (email && password) {
+      this.isLoading = true;
+      this.errorMessage = null;
+      
       this.authService.login(email, password)
         .then(() => {
-          this.errorMessage = null;
           this.successMessage = 'Iniciando Sesión...';
           this.userService.setUserEmail(email); // Guarda el email del usuario
 
           // Verifica si el usuario es admin
           if (email === 'www.gamercracks@gmail.com') {
             setTimeout(() => {
+              this.isLoading = false;
               this.successMessage = null;
               this.router.navigate(['/admin.es']); // Redirige al panel admin
-            }, 3000);
+            }, 2000);
           } else {
             setTimeout(() => {
+              this.isLoading = false;
               this.successMessage = null;
               this.router.navigate(['/home.es']); // Redirige a la página principal
-            }, 3000);
+            }, 2000);
           }
         })
         .catch(error => {
           console.error('Error al iniciar sesión:', error);
+          this.isLoading = false;
           this.errorMessage = this.handleAuthError(error); // Manejo de errores
         });
     }
