@@ -88,8 +88,10 @@ mostrarAviso: boolean = false;
       this.authService.register(email, password)
         .then(() => {
           this.isLoading = false;
-          this.registeredEmail = email;
-          this.showVerificationModal = true;
+          this.successMessage = 'Cuenta creada exitosamente. Redirigiendo...';
+          setTimeout(() => {
+            this.router.navigate(['/essesion.es']);
+          }, 1500);
         })
         .catch(error => {
           console.error('Error al registrar el usuario:', error);
